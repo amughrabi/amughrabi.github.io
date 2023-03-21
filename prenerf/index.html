@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <meta property="og:image" content="https://jonbarron.info/mipnerf360/img/gardenvase.jpg">
+    <meta property="og:image" content="https://amughrabi.github.io/prenerf/img/dish_1550704750.png">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1296">
     <meta property="og:image:height" content="840">
@@ -23,7 +23,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Pre-NeRF 360: Enriching Unbounded Appearances for Neural Radiance Fields" />
     <meta name="twitter:description" content="Though neural radiance fields (NeRF) have demonstrated impressive view synthesis results on objects and small bounded regions of space, they struggle on 'unbounded' scenes, where the camera may point in any direction and content may exist at any distance. In this setting, existing NeRF-like models often produce blurry or low-resolution renderings (due to the unbalanced detail and scale of nearby and distant objects), are slow to train, and may exhibit artifacts due to the inherent ambiguity of the task of reconstructing a large scene from a small set of images. We present an extension of mip-NeRF (a NeRF variant that addresses sampling and aliasing) that uses a non-linear scene parameterization, online distillation, and a novel distortion-based regularizer to overcome the challenges presented by unbounded scenes. Our model, which we dub 'mip-NeRF 360' as we target scenes in which the camera rotates 360 degrees around a point, reduces mean-squared error by 54% compared to mip-NeRF, and is able to produce realistic synthesized views and detailed depth maps for highly intricate, unbounded real-world scenes." />
-    <meta name="twitter:image" content="https://jonbarron.info/mipnerf360/img/gardenvase.jpg" />
+    <meta name="twitter:image" content="/img/dish_1550704750.png" />
 
 
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💫</text></svg>">
@@ -69,14 +69,14 @@
                         </br>Universitat de Barcelona
                     </li>
                     <li>
-                        <a href="http://www.ub.edu/cvub/petiaradeva/">
-                            Petia Radeva
+                        <a href="https://mat.ub.edu/departament/professors/marques-ricardo/">
+                            Ricardo Marques
                         </a>
                         </br>Universitat de Barcelona
-                    </li><br>
+                    </li>
                     <li>
-                        <a href="https://mat.ub.edu/departament/professors/marques-ricardo/">
-                          Ricardo Marques
+                        <a href="http://www.ub.edu/cvub/petiaradeva/">
+                            Petia Radeva
                         </a>
                         </br>Universitat de Barcelona
                     </li>
@@ -94,12 +94,6 @@
                                 <h4><strong>Paper</strong></h4>
                             </a>
                         </li>
-<!--                        <li>-->
-<!--                            <a href="tbd">-->
-<!--                            <image src="img/youtube_icon.png" height="60px">-->
-<!--                                <h4><strong>Video</strong></h4>-->
-<!--                            </a>-->
-<!--                        </li>-->
                         <li>
                             <a href="https://ubarcelona-my.sharepoint.com/:u:/g/personal/aalmugal14_alumnes_ub_edu/ETiRyyTXJL9DhiK8SkTG0sEBz0V-faGZ2SqKWA6478bRRw?e=ZFAR76" target="popup" onclick="window.open('https://ubarcelona-my.sharepoint.com/:u:/g/personal/aalmugal14_alumnes_ub_edu/ETiRyyTXJL9DhiK8SkTG0sEBz0V-faGZ2SqKWA6478bRRw?e=ZFAR76','popup','width=600,height=400')">
                             <image src="img/database_icon.png" height="60px">
@@ -110,6 +104,12 @@
                             <a href="https://ubarcelona-my.sharepoint.com/:u:/g/personal/aalmugal14_alumnes_ub_edu/EVeiw2f8ruFBhXM0WNwJtJgBqxrU0jhy9OFrfVymHxVcAg?e=KTBPJB" target="popup" onclick="window.open('https://ubarcelona-my.sharepoint.com/:u:/g/personal/aalmugal14_alumnes_ub_edu/EVeiw2f8ruFBhXM0WNwJtJgBqxrU0jhy9OFrfVymHxVcAg?e=KTBPJB','popup','width=600,height=400')">
                                 <image src="img/database_icon.png" height="60px">
                                     <h4><strong>Evaluation Dataset (1.18G)</strong></h4>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://ubarcelona-my.sharepoint.com/:u:/g/personal/aalmugal14_alumnes_ub_edu/ESk7RM3iYD5Hqy_g4_McOGAB3p7PAb7ZWS-sBp_AYgb43A?e=M6s5Wd">
+                                <image src="img/logo_1.png" height="60px">
+                                    <h4><strong>Pretrained models (7.17G) </strong></h4>
                             </a>
                         </li>
                         <li>
@@ -127,14 +127,14 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <video id="v0" width="100%" autoplay loop muted controls>
-                  <source src="img/gardenvase_720.mp4" type="video/mp4" />
+                    <source src="img/dish_1550704750.mp4" type="video/mp4" />
                 </video>
-						</div>
+            </div>
             <div class="col-md-8 col-md-offset-2">
-							<p class="text-center">
-							Rendered images and depths from our model.
-							</p>
-						</div>
+                <p class="text-center">
+                    Rendered images and depths from our model.
+                </p>
+            </div>
         </div>
 
 
@@ -149,22 +149,59 @@
             </div>
         </div>
 
-
-
-       <!-- <div class="row">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <img src="img/Proposed%20Data%20Model%20(Pre-NeRF).png" alt="proposed method" width="100%"/>
+                <p class="text-center">
+                    Our proposed framework diagram, which outlines the entire workflow from a set of videos to any NeRF-like application. The data representation used in the diagram consists of four input videos that were taken from the Nutrition5k dataset
+                </p>
+            </div>
+        </div>
+        <style>
+            .col-md-3 {
+                width: 22%;
+                /*padding: 0.25em;*/
+            }
+        </style>
+        <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <h3>
-                    Video
+                    Rendering and Depth
                 </h3>
-                <div class="text-center">
-                    <div style="position:relative;padding-top:56.25%;">
-                        <iframe src="https://youtube.com/embed/zBSH-k9GbV4" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
-                    </div>
-                </div>
             </div>
-        </div>-->
+        </div>
 
-            
+        <div class="row">
+            <div class="col-md-3 col-md-offset-2">
+                <video id="v1" width="100%" autoplay loop muted controls>
+                    <source src="img/dish_1550710793.mp4" type="video/mp4" />
+                </video>
+                <p class="text-center">
+                    Dish(50710793)
+                </p>
+            </div>
+            <div class="col-md-3 col-md-offset-0">
+                <video id="v2" width="100%" autoplay loop muted controls>
+                    <source src="img/dish_1550712459.mp4" type="video/mp4" />
+                </video>
+                <p class="text-center">
+                    Dish(50712459)
+                </p>
+            </div>
+            <div class="col-md-3 col-md-offset-0">
+                <video id="v6" width="100%" autoplay loop muted controls>
+                    <source src="img/dish_1550777256.mp4" type="video/mp4" />
+                </video>
+                <p class="text-center">
+                    Dish(50777256)
+                </p>
+            </div>
+            <div class="col-md-8 col-md-offset-2">
+                <p class="text-center">
+                    Rendered images and depths from our model.
+                </p>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <h3>
