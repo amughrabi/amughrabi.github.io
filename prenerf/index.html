@@ -22,7 +22,7 @@
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Pre-NeRF 360: Enriching Unbounded Appearances for Neural Radiance Fields" />
-    <meta name="twitter:description" content="Though neural radiance fields (NeRF) have demonstrated impressive view synthesis results on objects and small bounded regions of space, they struggle on 'unbounded' scenes, where the camera may point in any direction and content may exist at any distance. In this setting, existing NeRF-like models often produce blurry or low-resolution renderings (due to the unbalanced detail and scale of nearby and distant objects), are slow to train, and may exhibit artifacts due to the inherent ambiguity of the task of reconstructing a large scene from a small set of images. We present an extension of mip-NeRF (a NeRF variant that addresses sampling and aliasing) that uses a non-linear scene parameterization, online distillation, and a novel distortion-based regularizer to overcome the challenges presented by unbounded scenes. Our model, which we dub 'mip-NeRF 360' as we target scenes in which the camera rotates 360 degrees around a point, reduces mean-squared error by 54% compared to mip-NeRF, and is able to produce realistic synthesized views and detailed depth maps for highly intricate, unbounded real-world scenes." />
+    <meta name="twitter:description" content="Neural radiance fields (NeRF) appeared recently as a powerful tool to generate realistic views of objects and confined areas. Still, they face serious challenges with open scenes, where the camera has unrestricted movement and content can appear at any distance. In such scenarios, current NeRF-inspired models frequently yield hazy or pixelated outputs, suffer slow training times, and might display irregularities, because of the challenging task of reconstructing an extensive scene from a limited number of images. We propose a new framework to boost the performance of NeRF-based architectures yielding significantly superior outcomes compared to the prior work. Our solution overcomes several obstacles that plagued earlier versions of NeRF, including handling multiple video inputs, selecting keyframes, and extracting poses from real-world frames that are ambiguous and symmetrical. Furthermore, we applied our framework, dubbed as &quot;Pre-NeRF 360&quot;, to enable the use of the Nutrition5k dataset in NeRF and introduce an updated version of this dataset, known as the N5k360 dataset." />
     <meta name="twitter:image" content="/img/dish_1550704750.png" />
 
 
@@ -78,6 +78,9 @@
                         </br>Universitat de Barcelona
                     </li>
                 </ul>
+                <small>
+                    * These authors contributed equally to this work.
+                </small>
             </div>
         </div>
 
