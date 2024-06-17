@@ -1,0 +1,1953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodMem Experiments</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet" media="all" />
+    <link href="portrait.css" rel="stylesheet" media="(orientation:portrait)" />
+    <link href="print.css" rel="stylesheet" media="print" />
+    <style>
+        .gif-container {
+            text-align: center;
+        }
+        .gif-container img {
+            width: 100%;
+        }
+        .abstract {
+            text-align: justify;
+        }
+        #seeMoreButton {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .github-logo {
+            position: relative;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .github-logo img {
+            width: 60px;
+            height: auto;
+        }
+        .github-text {
+            text-align: center;
+            font-size: 16px;
+            color: #333;
+        }
+        .citation {
+            text-align: justify;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding: 10px;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12 text-center mb-2">
+                <h1 class="mb-4">FoodMem</h1>
+                <p class="lead mb-4">This webpage shows all the experiments we realized for FoodMem's validation. We recommend zooming in to avoid webpage lag due to the amount of gifs.</p>
+                <div class="github-logo">
+                    <a href="https://github.com/GCVCG/FoodMem">
+                        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo">
+                    </a>
+                </div>
+                <div class="github-text">
+                    <a href="https://github.com/GCVCG/FoodMem">Code</a>
+                </div>
+                <div class="abstract">
+                    <h2>Abstract</h2>
+                    <p>Food segmentation is crucial in various research fields such as health, agriculture, and food biotechnology. Segmenting and tracking different types of food in images or videos is undeniably a significant achievement, and it is currently considered a newly emerging topic in today’s society. Our study aims to find and develop a production-grade framework for segmenting and tracking various types of food in a given set of images or videos at high-quality performance and near-real-time speed with minimum hardware resources, which unlocks many challenges in real-world applications, such as food volume estimation, calories estimation, 3D reconstruction, augmented and virtual reality, and digital twins. We introduce FoodMem, a novel framework for segmenting food in 360º scenes. Our framework can effectively segment food portions in a given video and generate accurate masks. Our framework combines the (1) SETR model to generate segment one- or few- masks of the food portions in a given scene and (2) XMem++, a memory-based tracking model, to track the food masks in complex scenes. Our framework performs better in segmenting food in different camera-capturing locations, illumination, reflection, scene complexity, and food diversity, achieving a significant noise reduction, artifact elimination, and completing the missing parts compared to the state-of-the-art food segmentation frameworks. We also introduce an annotated food dataset, which covers new challenging use cases not found in previous benchmarks. We conduct extensive experiments on Nutrition5k and Vegetables and Fruits datasets, showing that FoodMem improves the state-of-the-art by 2.5% mAP in food video segmentation. Moreover, FoodMem is 58 times faster than the state-of-the-art on average for both datasets.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-6 text-center">
+                <button id="sotaButton" class="btn btn-primary mr-2">SOTA models comparison</button>
+                <button id="ablationButton" class="btn btn-secondary">FoodMem ablation study</button>
+            </div>
+        </div>
+        <div class="content mt-4" id="content">
+            <div id="sotaContent">
+                <!-- GIFs for SOTA models comparison -->
+                <div class="row">
+                    <div class="col-2"><strong>Original video</strong></div>
+                    <div class="col-2"><strong>Ground truth</strong></div>
+                    <div class="col-2"><strong>FoodSAM</strong></div>
+                    <div class="col-2"><strong>DEVA</strong></div>
+                    <div class="col-2"><strong>kMean++</strong></div>
+                    <div class="col-2"><strong>FoodMem</strong></div>
+                </div>
+                <!-- First row of GIFs -->
+                <div class="row mb-3 gif-container" id="sotaGifs">
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551123072/video.gif" alt="Original video" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551123072/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551123072/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551123072/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551123072/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551123072/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                    </div>
+                </div>
+                <div class="row mb-3 gif-container" id="sotaGifs">
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551141849/video.gif" alt="Original video" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551141849/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551141849/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551141849/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551141849/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551141849/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                    </div>
+                </div>
+                <div class="row mb-3 gif-container" id="sotaGifs">
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551236981/video.gif" alt="Original video" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551236981/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551236981/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551236981/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551236981/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551236981/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                    </div>
+                </div>
+                <div class="row mb-3 gif-container" id="sotaGifs">
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551314254/video.gif" alt="Original video" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551314254/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551314254/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551314254/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551314254/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551314254/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                    </div>
+                </div>
+                <div class="row mb-3 gif-container" id="sotaGifs">
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551381404/video.gif" alt="Original video" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551381404/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551381404/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551381404/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551381404/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551381404/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                    </div>
+                </div>
+                <div id="sotaGifs2" style="display: none;">
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551392919/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551392919/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551392919/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551392919/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551392919/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551392919/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1557861837/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1557861837/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1557861837/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1557861837/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1557861837/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1557861837/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1561575300/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1561575300/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1561575300/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1561575300/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1561575300/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1561575300/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1561751958/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1561751958/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1561751958/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1561751958/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1561751958/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1561751958/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1562096512/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1562096512/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1562096512/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1562096512/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1562096512/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1562096512/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563208094/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563208094/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563208094/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563208094/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563208094/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563208094/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563304925/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563304925/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563304925/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563304925/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563304925/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563304925/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563393366/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563393366/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563393366/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563393366/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563393366/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563393366/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563553735/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563553735/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563553735/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563553735/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563553735/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563553735/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563811515/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563811515/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563811515/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563811515/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563811515/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563811515/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563986062/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563986062/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563986062/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563986062/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563986062/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563986062/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1564169298/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1564169298/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1564169298/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1564169298/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1564169298/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1564169298/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1565195493/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1565195493/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1565195493/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1565195493/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1565195493/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1565195493/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1566502061/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1566502061/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1566502061/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1566502061/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1566502061/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1566502061/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1568146977/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1568146977/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1568146977/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1568146977/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1568146977/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1568146977/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1574711517/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1574711517/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1574711517/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1574711517/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1574711517/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1574711517/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550707110/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550707110/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550707110/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550707110/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550707110/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550707110/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550707914/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550707914/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550707914/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550707914/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550707914/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550707914/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550708487/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550708487/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550708487/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550708487/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550708487/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550708487/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550710177/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550710177/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550710177/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550710177/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550710177/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550710177/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550710577/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550710577/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550710577/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550710577/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550710577/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550710577/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550711066/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550711066/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550711066/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550711066/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550711066/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550711066/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550711688/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550711688/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550711688/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550711688/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550711688/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550711688/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550712369/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550712369/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550712369/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550712369/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550712369/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550712369/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550712681/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550712681/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550712681/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550712681/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550712681/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550712681/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550713174/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550713174/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550713174/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550713174/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550713174/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550713174/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/apple/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/apple/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/apple/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/apple/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/apple/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/apple/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/avocado/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/avocado/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/avocado/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/avocado/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/avocado/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/avocado/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/banana/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/banana/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/banana/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/banana/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/banana/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/banana/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/blackberry/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/blackberry/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/blackberry/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/blackberry/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/blackberry/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/blackberry/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/blueberry/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/blueberry/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/blueberry/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/blueberry/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/blueberry/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/blueberry/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/carrot/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/carrot/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/carrot/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/carrot/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/carrot/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/carrot/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/cucumber/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/cucumber/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/cucumber/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/cucumber/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/cucumber/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/cucumber/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/grapes/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/grapes/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/grapes/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/grapes/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/grapes/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/grapes/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/peach/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/peach/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/peach/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/peach/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/peach/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/peach/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/pear/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/pear/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/pear/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/pear/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/pear/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/pear/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="sotaGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/strawberry/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/strawberry/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/strawberry/foodsam.gif" alt="FoodSAM" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/strawberry/deva.gif" alt="DEVA" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/strawberry/kmean.gif" alt="kMean++" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/strawberry/foodmem1.gif" alt="FoodMem" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="ablationContent" class="d-none">
+                <!-- GIFs for FoodMem ablation study -->
+                <div class="row">
+                    <div class="col-2"><strong>Original video</strong></div>
+                    <div class="col-2"><strong>Ground truth</strong></div>
+                    <div class="col-2"><strong>1 mask</strong></div>
+                    <div class="col-2"><strong>3 masks</strong></div>
+                    <div class="col-2"><strong>6 masks</strong></div>
+                    <div class="col-2"><strong>9 masks</strong></div>
+                </div>
+                <!-- Repeat this block 42 times, changing GIF sources accordingly -->
+                <div class="row mb-3 gif-container" id="ablationGifs">
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551123072/video.gif" alt="Original video" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551123072/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551123072/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551123072/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551123072/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551123072/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                    </div>
+                </div>
+                <div class="row mb-3 gif-container" id="ablationGifs">
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551141849/video.gif" alt="Original video" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551141849/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551141849/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551141849/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551141849/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551141849/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                    </div>
+                </div>
+                <div class="row mb-3 gif-container" id="ablationGifs">
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551236981/video.gif" alt="Original video" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551236981/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551236981/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551236981/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551236981/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551236981/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                    </div>
+                </div>
+                <div class="row mb-3 gif-container" id="ablationGifs">
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551314254/video.gif" alt="Original video" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551314254/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551314254/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551314254/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551314254/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551314254/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                    </div>
+                </div>
+                <div class="row mb-3 gif-container" id="ablationGifs">
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551381404/video.gif" alt="Original video" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551381404/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551381404/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551381404/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551381404/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                    </div>
+                    <div class="col-2">
+                        <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551381404/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                    </div>
+                </div>
+                <div id="ablationGifs2" style="display: none;">
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551392919/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551392919/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551392919/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551392919/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551392919/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1551392919/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1557861837/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1557861837/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1557861837/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1557861837/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1557861837/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1557861837/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1561575300/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1561575300/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1561575300/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1561575300/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1561575300/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1561575300/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1561751958/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1561751958/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1561751958/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1561751958/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1561751958/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1561751958/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1562096512/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1562096512/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1562096512/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1562096512/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1562096512/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1562096512/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563208094/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563208094/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563208094/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563208094/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563208094/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563208094/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563304925/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563304925/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563304925/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563304925/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563304925/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563304925/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563393366/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563393366/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563393366/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563393366/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563393366/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563393366/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563553735/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563553735/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563553735/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563553735/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563553735/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563553735/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563811515/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563811515/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563811515/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563811515/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563811515/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563811515/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563986062/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563986062/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563986062/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563986062/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563986062/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1563986062/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1564169298/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1564169298/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1564169298/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1564169298/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1564169298/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1564169298/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1565195493/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1565195493/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1565195493/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1565195493/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1565195493/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1565195493/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1566502061/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1566502061/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1566502061/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1566502061/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1566502061/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1566502061/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1568146977/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1568146977/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1568146977/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1568146977/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1568146977/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1568146977/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1574711517/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1574711517/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1574711517/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1574711517/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1574711517/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/n5k_missing/dish_1574711517/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550707110/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550707110/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550707110/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550707110/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550707110/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550707110/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550707914/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550707914/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550707914/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550707914/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550707914/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550707914/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550708487/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550708487/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550708487/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550708487/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550708487/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550708487/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550710177/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550710177/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550710177/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550710177/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550710177/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550710177/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550710577/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550710577/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550710577/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550710577/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550710577/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550710577/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550711066/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550711066/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550711066/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550711066/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550711066/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550711066/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550711688/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550711688/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550711688/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550711688/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550711688/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550711688/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550712369/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550712369/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550712369/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550712369/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550712369/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550712369/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550712681/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550712681/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550712681/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550712681/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550712681/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550712681/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550713174/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550713174/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550713174/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550713174/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550713174/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/seg/dish_1550713174/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/apple/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/apple/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/apple/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/apple/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/apple/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/apple/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/avocado/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/avocado/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/avocado/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/avocado/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/avocado/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/avocado/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/banana/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/banana/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/banana/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/banana/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/banana/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/banana/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/blackberry/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/blackberry/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/blackberry/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/blackberry/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/blackberry/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/blackberry/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/blueberry/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/blueberry/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/blueberry/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/blueberry/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/blueberry/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/blueberry/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/carrot/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/carrot/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/carrot/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/carrot/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/carrot/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/carrot/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/cucumber/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/cucumber/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/cucumber/foodmem1.gif" alt="1 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/cucumber/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/cucumber/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/cucumber/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/grapes/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/grapes/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/grapes/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/grapes/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/grapes/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/grapes/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/peach/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/peach/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/peach/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/peach/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/peach/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/peach/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/pear/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/pear/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/pear/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/pear/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/pear/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/pear/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="row mb-3 gif-container" id="ablationGifs">
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/strawberry/video.gif" alt="Original video" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/strawberry/gt.gif" alt="Ground truth" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/strawberry/foodmem1.gif" alt="1 mask" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/strawberry/foodmem3.gif" alt="3 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/strawberry/foodmem6.gif" alt="6 masks" class="lazy" loading="lazy">
+                        </div>
+                        <div class="col-2">
+                            <img src="placeholder.gif" data-src="gifs/VolETA/strawberry/foodmem9.gif" alt="9 masks" class="lazy" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h2>Citation</h2>
+            <p>If you want to cite our work, please use this:</p>
+            <div class="citation">
+                <pre>
+                    @misc{FoodMem,
+                        author = {Adrián Galán Pacheco and Ahmad Al-Mughrabi},
+                        title = {FoodMem: A Fast and Precise Food Video Segmentation},
+                        year = {2024},
+                        howpublished = {https://github.com/GCVCG/FoodMem},
+                        note = {Accessed: 2024-06-09}
+                    }
+                </pre>
+            </div>
+        </div>
+    </div>
+    <button id="seeMoreButton" class="btn btn-success">See more</button>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+                $('#sotaButton').click(function() {
+                    $('#sotaContent').show();
+                    $('#ablationContent').hide();
+                });
+                $('#ablationButton').click(function() {
+                    $('#sotaContent').hide();
+                    $('#ablationContent').show();
+                });
+
+                let showMore = false;
+                $('#seeMoreButton').click(function() {
+                    if (showMore) {
+                        $('#sotaGifs2, #ablationGifs2').hide();
+                        $(this).text('See more');
+                    } else {
+                        $('#sotaGifs2, #ablationGifs2').show();
+                        $(this).text('See less');
+                    }
+                    showMore = !showMore;
+                });
+            });
+            document.addEventListener("DOMContentLoaded", function() {
+                const lazyImages = document.querySelectorAll('img.lazy');
+
+                if ('IntersectionObserver' in window) {
+                    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+                        entries.forEach(function(entry) {
+                            if (entry.isIntersecting) {
+                                let lazyImage = entry.target;
+                                lazyImage.src = lazyImage.dataset.src;
+                                lazyImage.classList.remove('lazy');
+                                lazyImageObserver.unobserve(lazyImage);
+                            }
+                        });
+                    });
+
+                    lazyImages.forEach(function(lazyImage) {
+                        lazyImageObserver.observe(lazyImage);
+                    });
+                } else {
+                    // Fallback for browsers without IntersectionObserver support
+                    let lazyLoadThrottleTimeout;
+                    function lazyLoad() {
+                        if (lazyLoadThrottleTimeout) {
+                            clearTimeout(lazyLoadThrottleTimeout);
+                        }
+
+                        lazyLoadThrottleTimeout = setTimeout(function() {
+                            let scrollTop = window.pageYOffset;
+                            lazyImages.forEach(function(lazyImage) {
+                                if (lazyImage.offsetTop < (window.innerHeight + scrollTop)) {
+                                    lazyImage.src = lazyImage.dataset.src;
+                                    lazyImage.classList.remove('lazy');
+                                }
+                            });
+                            if (lazyImages.length == 0) { 
+                                document.removeEventListener("scroll", lazyLoad);
+                                window.removeEventListener("resize", lazyLoad);
+                                window.removeEventListener("orientationchange", lazyLoad);
+                            }
+                        }, 20);
+                    }
+
+                    document.addEventListener("scroll", lazyLoad);
+                    window.addEventListener("resize", lazyLoad);
+                    window.addEventListener("orientationchange", lazyLoad);
+                }
+
+                // Function to check if an element is in viewport
+                function isInViewport(element) {
+                    const rect = element.getBoundingClientRect();
+                    return (
+                        rect.top >= 0 &&
+                        rect.left >= 0 &&
+                        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+                    );
+                }
+
+                // Pause GIFs when they are not in viewport
+                function pauseGifs() {
+                    document.querySelectorAll('.gif-container img').forEach(gif => {
+                        if (!isInViewport(gif)) {
+                            gif.style.pointerEvents = 'none';               
+                        }
+                    });
+                }
+
+                // Resume GIFs when they are in viewport
+                function resumeGifs() {
+                    document.querySelectorAll('.gif-container img').forEach(gif => {
+                        if (isInViewport(gif)) {
+                            gif.style.pointerEvents = 'auto'; 
+                        }
+                    });
+                }
+
+                // Event listeners for scrolling
+                window.addEventListener('scroll', () => {
+                    pauseGifs();
+                    resumeGifs();
+                });
+
+                // Initial check when page loads
+                document.addEventListener('DOMContentLoaded', () => {
+                    pauseGifs();
+                    resumeGifs();
+                });
+
+                const sotaButton = document.getElementById("sotaButton");
+                const ablationButton = document.getElementById("ablationButton");
+                const sotaContent = document.getElementById("sotaContent");
+                const ablationContent = document.getElementById("ablationContent");
+
+                sotaButton.addEventListener("click", function() {
+                    sotaContent.classList.remove("d-none");
+                    ablationContent.classList.add("d-none");
+                    sotaButton.classList.add("btn-primary");
+                    sotaButton.classList.remove("btn-secondary");
+                    ablationButton.classList.add("btn-secondary");
+                    ablationButton.classList.remove("btn-primary");
+                    restartGIFs("sotaGifs");
+                });
+
+                ablationButton.addEventListener("click", function() {
+                    sotaContent.classList.add("d-none");
+                    ablationContent.classList.remove("d-none");
+                    ablationButton.classList.add("btn-primary");
+                    ablationButton.classList.remove("btn-secondary");
+                    sotaButton.classList.add("btn-secondary");
+                    sotaButton.classList.remove("btn-primary");
+                    restartGIFs("ablationGifs");
+                });
+
+                function restartGIFs(containerId) {
+                    const gifsContainer = document.getElementById(containerId);
+                    const gifs = gifsContainer.querySelectorAll("img");
+                    gifs.forEach(function(gif) {
+                        gif.src = gif.src;
+                    });
+                }
+            });
+    </script>
+</body>
+</html>
