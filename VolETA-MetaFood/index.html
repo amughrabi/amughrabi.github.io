@@ -1,0 +1,299 @@
+
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>VolETA-MetaFood</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:image" content="https://amughrabi.github.io/prenerf/img/dish_1550704750.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1296">
+    <meta property="og:image:height" content="840">
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://amughrabi.github.io/prenerf/"/>
+    <meta property="og:title" content="VolETA: One- and Few-shot Food Volume Estimation" />
+    <meta property="og:description" content="Accurate food volume estimation is essential for dietary assessment, nutritional tracking, and portion control applications. We present VolETA, a sophisticated methodology for estimating food volume using 3D generative techniques. Our approach creates a scaled 3D mesh of food objects using one- or few-RGBD images. We start by selecting keyframes based on the RGB images and then segmenting the reference object in the RGB images using XMem++. Simultaneously, camera positions are estimated and refined using the PixSfM technique. The segmented food images, reference objects, and camera poses are combined to form a data model suitable for NeuS2. Independent mesh reconstructions for reference and food objects are carried out, with scaling factors determined using MeshLab based on the reference object. Moreover, depth information is used to fine-tune the scaling factors by estimating the potential volume range. The fine-tuned scaling factors are then applied to the cleaned food meshes for accurate volume measurements. Similarly, we enter a segmented RGB image to the One-2-3-45 model for one-shot food volume estimation, resulting in a mesh. We then leverage the obtained scaling factors to the cleaned food mesh for accurate volume measurements. Our experiments show that our method effectively addresses occlusions, varying lighting conditions, and complex food geometries, achieving robust and accurate volume estimations with 10.97\% MAPE using the MTF dataset. This innovative approach enhances the precision of volume assessments and significantly contributes to computational nutrition and dietary monitoring advancements." />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="VolETA: One- and Few-shot Food Volume Estimation" />
+    <meta name="twitter:description" content="Accurate food volume estimation is essential for dietary assessment, nutritional tracking, and portion control applications. We present VolETA, a sophisticated methodology for estimating food volume using 3D generative techniques. Our approach creates a scaled 3D mesh of food objects using one- or few-RGBD images. We start by selecting keyframes based on the RGB images and then segmenting the reference object in the RGB images using XMem++. Simultaneously, camera positions are estimated and refined using the PixSfM technique. The segmented food images, reference objects, and camera poses are combined to form a data model suitable for NeuS2. Independent mesh reconstructions for reference and food objects are carried out, with scaling factors determined using MeshLab based on the reference object. Moreover, depth information is used to fine-tune the scaling factors by estimating the potential volume range. The fine-tuned scaling factors are then applied to the cleaned food meshes for accurate volume measurements. Similarly, we enter a segmented RGB image to the One-2-3-45 model for one-shot food volume estimation, resulting in a mesh. We then leverage the obtained scaling factors to the cleaned food mesh for accurate volume measurements. Our experiments show that our method effectively addresses occlusions, varying lighting conditions, and complex food geometries, achieving robust and accurate volume estimations with 10.97\% MAPE using the MTF dataset. This innovative approach enhances the precision of volume assessments and significantly contributes to computational nutrition and dietary monitoring advancements." />
+    <meta name="twitter:image" content="/img/dish_1550704750.png" />
+
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💫</text></svg>">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
+    <link rel="stylesheet" href="css/app.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.3/clipboard.min.js"></script>
+    
+    <script src="js/app.js"></script>
+</head>
+
+<body>
+    <div class="container" id="main">
+        <div class="row">
+            <h2 class="col-md-12 text-center">
+                <b>VolETA:</b> <br/>One- and Few-shot Food Volume Estimation<br/>
+            </h2>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <ul class="list-inline">
+                    <li>
+                        <a href="https://amughrabi.github.io/">
+                          Ahmad AlMughrabi
+                        </a>
+                        </br>Universitat de Barcelona
+                    </li>
+                    <li>
+                        <a href="https://umairharon.github.io/">
+                            Umair Haroon
+                        </a>
+                        </br>Universitat de Barcelona
+                    </li>
+                    <li>
+                        <a href="https://ricjm.github.io/">
+                            Ricardo Marques*
+                        </a>
+                        </br>Universitat de Barcelona
+                    </li>
+                    <li>
+                        <a href="http://www.ub.edu/cvub/petiaradeva/">
+                            Petia Radeva*
+                        </a>
+                        </br>Universitat de Barcelona
+                    </li>
+                </ul>
+                <small>
+                    * These authors contributed equally to this work.
+                </small>
+            </div>
+        </div>
+
+
+        <div class="row">
+                <div class="col-md-4 col-md-offset-4 text-center">
+                    <ul class="nav nav-pills nav-justified">
+                        <li>
+                            <a href="https://arxiv.org/abs/2303.12234">
+                            <image src="img/VolETA_paper_image.png" height="60px">
+                                <h4><strong>Paper</strong></h4>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.kaggle.com/competitions/cvpr-metafood-3d-food-reconstruction-challenge/data" target="popup" onclick="https://www.kaggle.com/competitions/cvpr-metafood-3d-food-reconstruction-challenge/data','popup','width=600,height=400')">
+                            <image src="img/database_icon.png" height="60px">
+                                <h4><strong>MTF Challenge Dataset</strong></h4>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://sites.google.com/view/cvpr-metafood-2024/challenge">
+                                <image src="img/logo_1.png" height="60px">
+                                    <h4><strong>MetaFood CVPR Workshop Challenge 2024</strong></h4>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/GCVCG/VolETA-MetaFood">
+                            <image src="img/github.png" height="60px">
+                                <h4><strong>Code</strong></h4>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+        </div>
+
+
+
+<!--        <div class="row">-->
+<!--            <div class="col-md-8 col-md-offset-2">-->
+<!--                <video id="v0" width="100%" autoplay loop muted controls>-->
+<!--                    <source src="img/dish_1550704750.mp4" type="video/mp4" />-->
+<!--                </video>-->
+<!--            </div>-->
+<!--            <div class="col-md-8 col-md-offset-2">-->
+<!--                <p class="text-center">-->
+<!--                    Rendered images and depths from our model.-->
+<!--                </p>-->
+<!--            </div>-->
+<!--        </div>-->
+
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3 class="text-center">
+                    Abstract
+                </h3>
+                <p class="text-justify">
+                    Accurate food volume estimation is essential for dietary assessment, nutritional tracking, and portion control applications. We present VolETA, a sophisticated methodology for estimating food volume using 3D generative techniques. Our approach creates a scaled 3D mesh of food objects using one- or few-RGBD images. We start by selecting keyframes based on the RGB images and then segmenting the reference object in the RGB images using XMem++. Simultaneously, camera positions are estimated and refined using the PixSfM technique. The segmented food images, reference objects, and camera poses are combined to form a data model suitable for NeuS2. Independent mesh reconstructions for reference and food objects are carried out, with scaling factors determined using MeshLab based on the reference object. Moreover, depth information is used to fine-tune the scaling factors by estimating the potential volume range. The fine-tuned scaling factors are then applied to the cleaned food meshes for accurate volume measurements. Similarly, we enter a segmented RGB image to the One-2-3-45 model for one-shot food volume estimation, resulting in a mesh. We then leverage the obtained scaling factors to the cleaned food mesh for accurate volume measurements. Our experiments show that our method effectively addresses occlusions, varying lighting conditions, and complex food geometries, achieving robust and accurate volume estimations with 10.97\% MAPE using the MTF dataset. This innovative approach enhances the precision of volume assessments and significantly contributes to computational nutrition and dietary monitoring advancements.
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3 class="text-center">
+                    Propose Framework
+                </h3>
+                <img src="img/VolETA.png" alt="proposed method" width="100%"/>
+                <p class="text-center">
+                    In our method for estimating food volume with just a few photos, we use ID and food object masks as input. We start by selecting keyframes from the RGB images and removing blurry and overlapping images (IK). Then, we use PixSfM to estimate camera poses (C). At the same time, we segment the reference object using SAM with a segmentation prompt from the user. We then use the XMem++ method to generate reference object masks for all frames using the reference object mask and RGB images. After that, we apply a binary image segmentation method to RGB images (IK), reference object masks (Mr), and food object masks (Mf), resulting in RGBA images (IRr). We then transform the RGBA images and poses to generate meaningful metadata and create modeled data (Dm). Next, we input the modeled data into NeuS2 to reconstruct colorful meshes for the reference (Rr) and food objects (Rf). To ensure accuracy, we use "Remove Isolated Pieces" with diameter thresholding to clean up the mesh and remove small isolated pieces that do not belong to the reference or food mesh resulting in ({RCr, RCf}). Finally, we manually identify the scaling factor using the reference mesh via MeshLab (S). We fine-tune the scaling factor using depth information and the food masks and then apply the fine-tuned scaling factor (Sf) to the cleaned food mesh to generate a scaled food mesh (RFf) in the meter unit.
+                </p>
+            </div>
+        </div>
+        <style>
+            .col-md-3 {
+                width: 22%;
+                /*padding: 0.25em;*/
+            }
+        </style>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3 class="text-center">
+                    Visual Results
+                </h3>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-2">
+                <img src="img/gif/1.gif" width="100%" alt="1">
+                <p class="text-center">1</p>
+            </div>
+            <div class="col-md-2">
+                <img src="img/gif/2.gif" width="100%" alt="2">
+                <p class="text-center">2</p>
+            </div>
+            <div class="col-md-2">
+                <img src="img/gif/3.gif" width="100%" alt="3">
+                <p class="text-center">3</p>
+            </div>
+            <div class="col-md-2">
+                <img src="img/gif/4.gif" width="100%" alt="4">
+                <p class="text-center">4</p>
+            </div>
+            <div class="col-md-2">
+                <img src="img/gif/5.gif" width="100%" alt="5">
+                <p class="text-center">5</p>
+            </div>
+            <div class="col-md-2">
+                <img src="img/gif/6.gif" width="100%" alt="6">
+                <p class="text-center">6</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <img src="img/gif/7.gif" width="100%" alt="7">
+                <p class="text-center">7</p>
+            </div>
+            <div class="col-md-2">
+                <img src="img/gif/8.gif" width="100%" alt="8">
+                <p class="text-center">8</p>
+            </div>
+            <div class="col-md-2">
+                <img src="img/gif/9.gif" width="100%" alt="9">
+                <p class="text-center">9</p>
+            </div>
+            <div class="col-md-2">
+                <img src="img/gif/10.gif" width="100%" alt="10">
+                <p class="text-center">10</p>
+            </div>
+            <div class="col-md-2">
+                <img src="img/gif/11.gif" width="100%" alt="11">
+                <p class="text-center">11</p>
+            </div>
+            <div class="col-md-2">
+                <img src="img/gif/12.gif" width="100%" alt="13">
+                <p class="text-center">13</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <img src="img/gif/14.gif" width="100%" alt="14">
+                <p class="text-center">14</p>
+            </div>
+            <div class="col-md-2">
+                <img src="img/gif/16.gif" width="100%" alt="16">
+                <p class="text-center">16</p>
+            </div>
+            <div class="col-md-2">
+                <img src="img/gif/17.gif" width="100%" alt="17">
+                <p class="text-center">17</p>
+            </div>
+            <div class="col-md-2">
+                <img src="img/gif/18.gif" width="100%" alt="18">
+                <p class="text-center">18</p>
+            </div>
+            <div class="col-md-2">
+                <img src="img/gif/19.gif" width="100%" alt="19">
+                <p class="text-center">19</p>
+            </div>
+            <div class="col-md-2">
+                <img src="img/gif/20.gif" width="100%" alt="20">
+                <p class="text-center">20</p>
+            </div>
+        </div>
+
+        </div>
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h3 class="text-center">
+                Comparison Over Ground Truth
+            </h3>
+
+            <img src="img/Results.png" alt="proposed method" width="100%"/>
+
+            <p class="text-center">
+                Comparisons to ours and ground truth using the MTF dataset. Each scene shows our reconstruction (left) and ground truth (right).
+            </p>
+        </div>
+    </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Citation
+                </h3>
+                <div class="form-group col-md-10 col-md-offset-1">
+                    <textarea id="bibtex" class="form-control" readonly>
+@misc{almughrabi2023voleta #Need to be updated,
+      title={VolETA: One- and Few-shot Food Volume Estimation},
+      author={Ahmad AlMughrabi and Umair Haroon and Ricardo Marques and Petia Radeva},
+      year={2024},
+      eprint={2303.12234},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
+                    </textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Acknowledgements
+                </h3>
+                <p class="text-justify">
+                    This work was partially funded by the EU project MUSAE (No. 01070421), 2021-SGR-01094 (AGAUR), Icrea Academia’2022 (Generalitat de Catalunya), Robo STEAM (2022-1-BG01-KA220-VET000089434, Erasmus+ EU), DeepSense (ACE053/22/000029, ACCIÓ), CERCA Programme/Generalitat de Catalunya, and Grants PID2022141566NB-I00 (IDEATE), PDC2022-133642-I00 (DeepFoodVol), and CNS2022-135480 (A-BMC) funded by MICIU/AEI/10.13039/501100 011033, by FEDER (UE), and by European Union NextGenerationEU/ PRTR. R. Marques acknowledges the support of the Serra Húnter Programme. A. AlMughrabi acknowledges the support of FPI Becas, MICINN, Spain. U. Haroon acknowledges the support of FI-SDUR Becas, MICINN, Spain.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
