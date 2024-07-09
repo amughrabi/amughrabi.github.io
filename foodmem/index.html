@@ -45,8 +45,8 @@
     <div class="container mt-4">
         <div class="row">
             <div class="col-12 text-center mb-2">
-                <h1 class="mb-4">FoodMem</h1>
-                <p class="lead mb-4">This webpage shows all the experiments we realized for FoodMem's validation. We recommend zooming in to avoid webpage lag due to the amount of gifs.</p>
+                <h1 class="mb-4">FoodMem: Near Real-time and Precise Food Video Segmentation</h1>
+                <!-- <p class="lead mb-4">This webpage shows all the experiments we realized for FoodMem's validation. We recommend zooming in to avoid webpage lag due to the amount of gifs.</p> -->
                 <div class="github-logo">
                     <a href="https://github.com/GCVCG/FoodMem">
                         <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo">
@@ -55,9 +55,42 @@
                 <div class="github-text">
                     <a href="https://github.com/GCVCG/FoodMem">Code</a>
                 </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <ul class="list-inline">
+                    <li>
+                        <a href="https://amughrabi.github.io/">
+                          Ahmad AlMughrabi
+                        </a>
+                        </br>Universitat de Barcelona
+                    </li>
+                    <li>
+                        <a href="#">
+                            Adrián Galán
+                        </a>
+                        </br>Universitat de Barcelona
+                    </li>
+                    <li>
+                        <a href="https://ricjm.github.io/">
+                            Ricardo Marques
+                        </a>
+                        </br>Universitat de Barcelona
+                    </li>
+                    <li>
+                        <a href="http://www.ub.edu/cvub/petiaradeva/">
+                            Petia Radeva
+                        </a>
+                        </br>Universitat de Barcelona
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-center mb-2">
                 <div class="abstract">
                     <h2>Abstract</h2>
-                    <p>Food segmentation is crucial in various research fields such as health, agriculture, and food biotechnology. Segmenting and tracking different types of food in images or videos is undeniably a significant achievement, and it is currently considered a newly emerging topic in today’s society. Our study aims to find and develop a production-grade framework for segmenting and tracking various types of food in a given set of images or videos at high-quality performance and near-real-time speed with minimum hardware resources, which unlocks many challenges in real-world applications, such as food volume estimation, calories estimation, 3D reconstruction, augmented and virtual reality, and digital twins. We introduce FoodMem, a novel framework for segmenting food in 360º scenes. Our framework can effectively segment food portions in a given video and generate accurate masks. Our framework combines the (1) SETR model to generate segment one- or few- masks of the food portions in a given scene and (2) XMem++, a memory-based tracking model, to track the food masks in complex scenes. Our framework performs better in segmenting food in different camera-capturing locations, illumination, reflection, scene complexity, and food diversity, achieving a significant noise reduction, artifact elimination, and completing the missing parts compared to the state-of-the-art food segmentation frameworks. We also introduce an annotated food dataset, which covers new challenging use cases not found in previous benchmarks. We conduct extensive experiments on Nutrition5k and Vegetables and Fruits datasets, showing that FoodMem improves the state-of-the-art by 2.5% mAP in food video segmentation. Moreover, FoodMem is 58 times faster than the state-of-the-art on average for both datasets.</p>
+                    <p>Food segmentation is essential in various research areas such as health, agriculture, and food biotechnology. The ability to segment and track different types of food in images and videos is a growing area of interest in current research. This study introduces the development of a robust framework for high-quality, near-real-time segmentation and tracking of food items in videos, using minimal hardware resources. This advancement addresses real-world challenges, including food volume estimation, calorie estimation, 3D reconstruction, augmented and virtual reality, and digital twins. We present FoodMem, a novel framework designed to segment food items from video sequences of 360-degree unbounded scenes. FoodMem can consistently generate masks of food portions in a video sequence, overcoming the limitations of existing semantic segmentation models, such as flickering and prohibitive inference speeds in video processing contexts. Although these issues can be alleviated by existing memory-based models, which show promise in object-tracking applications due to their performance and speed, they require user input, hindering automation. To address these issues, FoodMem integrates the SETR model to create initial segmentation masks and XMem++, a memory-based tracking model, to monitor food masks in complex scenes. Our framework outperforms current state-of-the-art food segmentation models, yielding superior performance across various conditions, such as camera angles, lighting, reflections, scene complexity, and food diversity. This results in reduced segmentation noise, elimination of artifacts, and completion of missing segments. We also introduce a new annotated food dataset encompassing challenging scenarios absent in previous benchmarks. Extensive experiments conducted on the Nutrition5k and Vegetables \& Fruits datasets demonstrate that FoodMem enhances the state-of-the-art by 2.5% mean average precision in food video segmentation and is 58times faster on average.</p>    
                 </div>
             </div>
         </div>
@@ -297,13 +330,7 @@
             <p>If you want to cite our work, please use this:</p>
             <div class="citation">
                 <pre>
-                    @misc{FoodMem,
-                        author = {Adrián Galán Pacheco and Ahmad AlMughrabi},
-                        title = {FoodMem: A Fast and Precise Food Video Segmentation},
-                        year = {2024},
-                        howpublished = {https://github.com/GCVCG/FoodMem},
-                        note = {Accessed: 2024-06-09}
-                    }
+                  TBD
                 </pre>
             </div>
         </div>
