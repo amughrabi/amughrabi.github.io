@@ -55,8 +55,7 @@
                 <div class="github-text">
                     <a href="https://github.com/GCVCG/FoodMem">Code</a>
                 </div>
-        </div>
-        <div class="row">
+            </div>
             <div class="col-md-12 text-center">
                 <ul class="list-inline">
                     <li>
@@ -90,14 +89,14 @@
             <div class="col-12 text-center mb-2">
                 <div class="abstract">
                     <h2>Abstract</h2>
-                    <p>Food segmentation is essential in various research areas such as health, agriculture, and food biotechnology. The ability to segment and track different types of food in images and videos is a growing area of interest in current research. This study introduces the development of a robust framework for high-quality, near-real-time segmentation and tracking of food items in videos, using minimal hardware resources. This advancement addresses real-world challenges, including food volume estimation, calorie estimation, 3D reconstruction, augmented and virtual reality, and digital twins. We present FoodMem, a novel framework designed to segment food items from video sequences of 360-degree unbounded scenes. FoodMem can consistently generate masks of food portions in a video sequence, overcoming the limitations of existing semantic segmentation models, such as flickering and prohibitive inference speeds in video processing contexts. Although these issues can be alleviated by existing memory-based models, which show promise in object-tracking applications due to their performance and speed, they require user input, hindering automation. To address these issues, FoodMem integrates the SETR model to create initial segmentation masks and XMem++, a memory-based tracking model, to monitor food masks in complex scenes. Our framework outperforms current state-of-the-art food segmentation models, yielding superior performance across various conditions, such as camera angles, lighting, reflections, scene complexity, and food diversity. This results in reduced segmentation noise, elimination of artifacts, and completion of missing segments. We also introduce a new annotated food dataset encompassing challenging scenarios absent in previous benchmarks. Extensive experiments conducted on the Nutrition5k and Vegetables \& Fruits datasets demonstrate that FoodMem enhances the state-of-the-art by 2.5% mean average precision in food video segmentation and is 58times faster on average.</p>    
+                    <p>Food segmentation is essential in various research areas such as health, agriculture, and food biotechnology. The ability to segment and track different types of food in images and videos is a growing area of interest in current research. This study introduces the development of a robust framework for high-quality, near-real-time segmentation and tracking of food items in videos, using minimal hardware resources. This advancement addresses real-world challenges, including food volume estimation, calorie estimation, 3D reconstruction, augmented and virtual reality, and digital twins. We present FoodMem, a novel framework designed to segment food items from video sequences of 360-degree unbounded scenes. FoodMem can consistently generate masks of food portions in a video sequence, overcoming the limitations of existing semantic segmentation models, such as flickering and prohibitive inference speeds in video processing contexts. Although these issues can be alleviated by existing memory-based models, which show promise in object-tracking applications due to their performance and speed, they require user input, hindering automation. To address these issues, FoodMem integrates the SETR model to create initial segmentation masks and XMem++, a memory-based tracking model, to monitor food masks in complex scenes. Our framework outperforms current state-of-the-art food segmentation models, yielding superior performance across various conditions, such as camera angles, lighting, reflections, scene complexity, and food diversity. This results in reduced segmentation noise, elimination of artifacts, and completion of missing segments. We also introduce a new annotated food dataset encompassing challenging scenarios absent in previous benchmarks. Extensive experiments conducted on the Nutrition5k and Vegetables & Fruits datasets demonstrate that FoodMem enhances the state-of-the-art by 2.5% mean average precision in food video segmentation and is 58 times faster on average.</p>    
                 </div>
             </div>
         </div>
         <div class="row justify-content-center">
             <div class="col-6 text-center">
                 <button id="sotaButton" class="btn btn-primary mr-2">SOTA models comparison</button>
-                <button id="ablationButton" class="btn btn-secondary">FoodMem ablation study</button>
+                <button id="ablationButton" class="btn btn-secondary mr-2">FoodMem ablation study</button>
             </div>
         </div>
         <div class="content mt-4" id="content">
