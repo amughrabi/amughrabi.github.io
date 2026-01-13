@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BenchSeg Experiments</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet" media="all" />
+    <link href="portrait.css" rel="stylesheet" media="(orientation:portrait)" />
+    <link href="print.css" rel="stylesheet" media="print" />
+    <style>
+        .gif-container {
+            text-align: center;
+        }
+        .gif-container img {
+            width: 100%;
+        }
+        .abstract {
+            text-align: justify;
+        }
+        .github-logo img {
+            width: 60px;
+            height: auto;
+        }
+        .citation {
+            text-align: justify;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+        .author-list {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .author-item {
+            margin: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12 text-center mb-2">
+                <h1 class="mb-4">BenchSeg: A Large-Scale Dataset and Benchmark for Multi-View Food Video Segmentation</h1>
+                <div class="col-md-12 text-center">
+                <ul class="list-inline author-list">
+                    <li class="list-inline-item author-item">
+                        <a href="https://amughrabi.github.io/">
+                            Ahmad AlMughrabi
+                        </a>
+                        <br>Universitat de Barcelona
+                    </li>
+                    <li class="list-inline-item author-item">
+                        <a href="https://www.linkedin.com/in/guillermo-rivo-03432623a/">
+                            Guillermo Rivo
+                        </a>
+                        <br>Universitat de Barcelona
+                    </li>
+                    <li class="list-inline-item author-item">
+                        <a href="https://www.linkedin.com/in/cajifan/">
+                            Carlos Jiménez-Farfán
+                        </a>
+                        <br>Universitat de Barcelona
+                    </li>
+                    <li class="list-inline-item author-item">
+                        <a href="https://umairharon.github.io/">
+                            Umair Haroon
+                        </a>
+                        <br>Universitat de Barcelona
+                    </li>
+                    <li class="list-inline-item author-item">
+                        <a href="https://www.linkedin.com/in/farid-al-areqi-26a0b12a3">
+                           Farid Al-Areqi
+                        </a>
+                        <br>Universitat de Barcelona
+                    </li>
+                    <li class="list-inline-item author-item">
+                        <a href="https://www.linkedin.com/in/hyunjun-jung-1a5b45107/">
+                            Hyunjun Jung
+                        </a>
+                        <br>Technical University of Munich
+                    </li>
+                    <li class="list-inline-item author-item">
+                        <a href="https://www.professoren.tum.de/en/busam-benjamin">
+                            Benjamin Busam
+                        </a>
+                        <br>Technical University of Munich
+                    </li>
+                    <li class="list-inline-item author-item">
+                        <a href="https://ricjm.github.io/">
+                            Ricardo Marques
+                        </a>
+                        <br>Universitat de Barcelona
+                    </li>
+                    <li class="list-inline-item author-item">
+                        <a href="http://www.ub.edu/cvub/petiaradeva/">
+                            Petia Radeva
+                        </a>
+                        <br>Universitat de Barcelona
+                    </li>
+                </ul>
+            </div>
+                <!-- <p class="lead mb-4">This webpage shows all the experiments we realized for BenchSeg's validation. We recommend zooming in to avoid webpage lag due to the amount of gifs.</p> -->
+                <div class="icon-container" style="display: flex; justify-content: center; align-items: center; gap: 20px;">
+                    <div class="article">
+                        <a href="https://arxiv.org/tbd" style="display: flex; flex-direction: column; align-items: center; text-decoration: none;">
+                            <img src="imgs/paper.png" alt="Paper" style="width:60px;height:60px;">
+                            <span>Paper</span>
+                        </a>
+                    </div>
+                    <div class="github" style="display: flex; flex-direction: column; align-items: center;">
+                        <a href="https://github.com/GCVCG/BenchSeg" style="display: flex; flex-direction: column; align-items: center; text-decoration: none;">
+                            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" style="width:60px;height:60px;">
+                            <span>Code</span>
+                        </a>
+                    </div>
+                    <div class="pretrained-models" style="display: flex; flex-direction: column; align-items: center;">
+                        <a href="https://ubarcelona-my.sharepoint.com/:u:/g/personal/ahmad_almughrabi_ub_edu/IQCvxTYvwLEXRohtfOP8a7QsAQMvgWsfI42CKtXNUpM_5uI?e=Xx1fLs" style="display: flex; flex-direction: column; align-items: center; text-decoration: none;">
+                            <img src="imgs/pretrainedmodels.png" alt="Pretrained Models Icon" style="width:60px;height:60px;">
+                            <span style="text-align: center;">Pretrained models (8.15GB)</span>
+                        </a>
+                    </div>
+                    <div class="download-data" style="display: flex; flex-direction: column; align-items: center;">
+                        <a href="https://ubarcelona-my.sharepoint.com/:f:/g/personal/ahmad_almughrabi_ub_edu/IgCx8aqExIkET5Oc4SYkXx4LAU90ktza5oF0rYaRtMyJJ0Y?e=nChKFZ" style="display: flex; flex-direction: column; align-items: center; text-decoration: none;">
+                            <img src="imgs/dataset.png" alt="Data Download Icon" style="width:60px;height:60px;">
+                            <span style="text-align: center;">Dataset</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-center mb-2">
+                <div class="abstract">
+                    <h2>Abstract</h2>
+                    <p style="text-align: justify">Food image segmentation is a critical task for dietary analysis, enabling accurate estimation of food volume and nutrients. However, current methods suffer from limited multi-view data and poor generalization to new viewpoints. We introduce BenchSeg, a novel multi-view food video segmentation dataset and benchmark. BenchSeg aggregates 55 dish scenes (from Nutrition5k, Vegetables & Fruits, MetaFood3D, and FoodKit) with 25,284 meticulously annotated frames, capturing each dish under free 360° camera motion. We evaluate a diverse set of 20 state-of-the-art segmentation models (e.g., SAM-based, transformer, CNN, and large multimodal) on the existing FoodSeg103 dataset and evaluate them (alone and combined with video-memory modules) on BenchSeg. Quantitative and qualitative results demonstrate that while standard image segmenters degrade sharply under novel viewpoints, memory-augmented methods maintain temporal consistency across frames. Our best model combinations outperform prior work (e.g., improving over BenchSeg by ~2.5% mAP), offering new insights into food segmentation and tracking for dietary analysis.  </div>
+            </div>
+        </div>
+        <div class="content mt-4" id="content2" style="text-align: center;">
+            <h2>Proposed Methodology</h2>
+            <img src="imgs/benchseg.png" alt="Overview of the proposed three-stage methodology: (1) keyframe segmentation generates initial masks, (2) temporal propagation transfers them across non-key frames using stored features, and (3) late fusion refines masks by combining propagated and fresh predictions, enabling a reproducible and temporally coherent food-segmentation process. Camera poses shown in green indicate cases where the matching accuracy threshold $mAP \geq 95\%$ is satisfied; poses in red denote those falling below this threshold." style="text-align: center;"/>
+            <div style="text-align: justify">
+                Overview of the proposed three-stage methodology: (1) keyframe segmentation generates initial masks, (2) temporal propagation transfers them across non-key frames using stored features, and (3) late fusion refines masks by combining propagated and fresh predictions, enabling a reproducible and temporally coherent food-segmentation process. Camera poses shown in green indicate cases where the matching accuracy threshold mAP ≥ 95% is satisfied; poses in red denote those falling below this threshold.
+            </div>
+        </div>
+        <div class="content mt-4" id="content4" style="text-align: center;">
+            <h2>Experimental Results</h2>
+            <img src="imgs/comparasions_baselines.png" alt="BenchSeg" style="text-align: center; width: 57%"/>
+            <img src="imgs/comparasions_pies.png" alt="The figure shows the comparison of camera locations for different methods on a Foodkit object, with cameras colored by mAP: red for ≤50%, orange for 50–75%, yellow for 75–95%, and green for ≥95%, highlighting differences in coverage and reliability across methods." style="text-align: center; width: 40%"/>
+            <div style="text-align: justify">The figure shows the comparison of camera locations for different methods on a Foodkit object, with cameras colored by mAP: red for ≤50%, orange for 50–75%, yellow for 75–95%, and green for ≥95%, highlighting differences in coverage and reliability across methods.</div>
+        </div>
+        <div class="content mt-4" id="content5" style="text-align: center;">
+            <h2>Segmentor ❤️ Memory Tracking</h2>
+            <img src="imgs/benchseg_comparisions.png" alt="Comparison of camera locations for the base segmentor, the segmentor with XMem2, and the segmentor with SAM2, with cameras colored by mAP: red for ≤50\, orange for 50–75%, yellow for 75–95%, and green for ≥95%. The visualization highlights how each integration affects segmentation robustness across different viewpoints." style="text-align: center;"/>
+            <div style="text-align: justify">The figure shows the comparison of camera locations for the base segmentor, the segmentor with XMem2, and the segmentor with SAM2, with cameras colored by mAP: red for ≤50\, orange for 50–75%, yellow for 75–95%, and green for ≥95%. The visualization highlights how each integration affects segmentation robustness across different viewpoints.</div>
+        </div>
+        <div class="content mt-4" id="content">
+            <h2>Citation</h2>
+            <p>If you want to cite our work, please use this:</p>
+            <div class="citation">
+                <pre>
+                  @article{almughrabi2026BenchSeg,
+                      title={BenchSeg: BenchSeg: A Large-Scale Dataset and Benchmark for Multi-View Food Video Segmentation},
+                      author={Guillermo Rivo, Carlos Jiménez-Farfán, Umair Haroon, Farid Al-Areqi, Hyunjun Jung, Benjamin Busam, Ricardo Marques, Petia Radeva},
+                      journal={arXiv preprint 2601.07581},
+                      year={2026}
+                  }
+                </pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
