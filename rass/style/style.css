@@ -1,0 +1,95 @@
+.gif-container {
+  text-align: center;
+}
+
+.gif-container img {
+  width: 100%;
+}
+
+.abstract {
+  text-align: justify;
+}
+
+.github-logo img {
+  width: 60px;
+  height: auto;
+}
+
+.citation {
+  text-align: justify;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+.author-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.author-item {
+  margin: 10px;
+  text-align: center;
+}
+
+.responsive-img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 20px auto;
+}
+
+.figure-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.table-responsive {
+    width: 100%;
+}
+
+
+.table-modern {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    background: white;
+}
+
+.table-modern thead {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    color: white;
+}
+
+.table-modern th {
+    padding: 14px;
+    font-weight: 600;
+    border: none;
+    font-size: 14px;
+    letter-spacing: 0.3px;
+}
+
+.table-modern td {
+    padding: 14px;
+    border-top: 1px solid #eee;
+    font-size: 14px;
+}
+
+.table-modern tbody tr:hover {
+    background: #f6f9fc;
+    transition: 0.2s ease;
+}
+
+.table-modern tbody tr:nth-child(even) {
+    background: #fafafa;
+}
+
+.highlight {
+    font-weight: 600;
+    color: #2c3e50;
+}
