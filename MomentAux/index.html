@@ -26,6 +26,13 @@
         table th { border-top: none; }
         .tbl-note { font-size: 13px; color: #666; margin-top: -8px; }
         .outcome { border-left: 4px solid #ccc; padding: 4px 0 4px 14px; margin-bottom: 16px; }
+        /* Three columns, not three stacked banners: the outcomes are a
+           taxonomy of alternatives, so they should be read side by side.
+           Bootstrap's grid collapses them back to one column under 768px. */
+        .outcome-row { margin-top: 6px; }
+        .outcome-row .outcome { height: 100%; margin-bottom: 0; }
+        .outcome-row h3 { margin-top: 0; font-size: 18px; }
+        .outcome-row p { font-size: 15px; }
         .stack     { border-left-color: #1b9e77; }
         .substitute{ border-left-color: #d9a300; }
         .tax       { border-left-color: #d95f02; }
@@ -34,6 +41,22 @@
         .caveat { background: #fbfbf4; border-left: 4px solid #b9b98a;
                   padding: 10px 14px; font-size: 15px; margin: 18px 0; }
         footer { margin: 46px 0 30px; font-size: 14px; color: #666; text-align: center; }
+        /* TL;DR: the one thing a visitor should leave with if they read no
+           further, set above the abstract rather than inside it. */
+        .tldr { border-left: 5px solid #1b9e77; background: #f6fbf9;
+                padding: 16px 20px; margin: 6px 0 26px; border-radius: 4px; }
+        .tldr-lead { font-size: 19px; line-height: 1.5; margin-bottom: 10px; }
+        .tldr-sub { font-size: 15.5px; color: #444; margin-bottom: 0;
+                    text-align: justify; }
+        /* Affiliation and funder marks. Height-matched rather than
+           width-matched, because these logos have very different aspect
+           ratios and a shared width makes the wide ones dwarf the square
+           ones. Greyed back so they read as credits, not as branding. */
+        .logo-strip { display: flex; align-items: center; justify-content: center;
+                      gap: 42px; flex-wrap: wrap; margin: 26px 0 8px; }
+        .logo-strip img { height: 58px; width: auto; filter: grayscale(100%);
+                          opacity: .75; transition: opacity .2s, filter .2s; }
+        .logo-strip a:hover img { filter: none; opacity: 1; }
     </style>
 </head>
 <body>
@@ -89,6 +112,22 @@
 
     <div class="row">
         <div class="col-12">
+            <div class="tldr">
+                <p class="tldr-lead">A free, hand-crafted spectral prior is worth more to a
+                small transformer than two rounds of self-supervised pre-training &mdash; and
+                worth nothing at all to a convolutional network that already has enough data.
+                Which of those you get is measurable <em>before</em> you train the combined
+                system.</p>
+                <p class="tldr-sub">We ran the comparison the field keeps making informally:
+                every intervention under one frozen recipe, on byte-identical images, with its
+                compute cost declared. The gain then decomposes as
+                &Delta;&nbsp;=&nbsp;<em>G</em>&nbsp;+&nbsp;readout(base) &mdash; what a source
+                does to the features, plus what the classifier can cash in &mdash; and the
+                sign of that second term is correct on 85.7<!--auditRate-->% of the cells that
+                can test it. Sources supplying the <em>same</em> currency substitute; sources
+                supplying different ones stack; fusing into an already-informed initialization
+                taxes you in proportion to what that initialization was worth.</p>
+            </div>
             <h2>Abstract</h2>
             <div class="abstract">
                 <p>Fusing prior knowledge with data-driven learning is attractive precisely
@@ -132,29 +171,35 @@
     It <em>is</em> predictable from a cheap measurement on frozen features, taken before the
     combination is built.</p>
 
-    <div class="outcome stack">
+    <div class="row outcome-row">
+        <div class="col-md-4 d-flex">
+        <div class="outcome stack">
         <h3>Stack &mdash; different currencies</h3>
         <p>The prior injects oriented-energy <em>structure</em>; heavy augmentation teaches
         invariance to nuisance transforms. Different currencies, so they compound. On
         ViT-tiny at 10% of CIFAR-100, the prior adds +13.3 under the plain recipe and
         <strong>+21.0</strong> on top of DeiT augmentation.</p>
-    </div>
-
-    <div class="outcome substitute">
+        </div>
+        </div>
+        <div class="col-md-4 d-flex">
+        <div class="outcome substitute">
         <h3>Substitute &mdash; same currency</h3>
         <p>The prior and contrastive pre-training fill the same feature deficit, so combining
         them adds nothing over the better single source. Measured on the feature side:
         whichever source has the larger frozen-feature gain is the one that wins end-to-end,
         at <strong>6 cells out of 6</strong> across two datasets.</p>
-    </div>
-
-    <div class="outcome tax">
+        </div>
+        </div>
+        <div class="col-md-4 d-flex">
+        <div class="outcome tax">
         <h3>Tax &mdash; fusing into an already-informed initialization</h3>
         <p>Injecting the prior on top of ImageNet weights is destructive everywhere, and the
         damage is proportional to what the initialization was contributing: up to
         <strong>&minus;17</strong> points on photographic data, and statistically zero on
         histopathology where those weights were worth little to begin with. Probing confirms
         the loss is feature-side, not a classifier failure.</p>
+        </div>
+        </div>
     </div>
 
     <h2>The rule</h2>
@@ -303,6 +348,27 @@
         construction under cost normalization, so our self-supervised numbers are lower
         bounds &mdash; and we measured how far below by re-running them at four times their
         budget. Two accuracy claims of ours did not survive that test and were withdrawn.
+    </div>
+
+    <h2>Acknowledgments</h2>
+    <p class="lead-text">This work was partially funded by the EU project FoodWISE,
+    2021-SGR-01094 (AGAUR), Icrea Academia'2022 (Generalitat de Catalunya), and Grants
+    PID2025-173459NB-C21 (BRIDGE-AI) and AIA2025-163919-C51 (EXPLORA), funded by
+    MICIU/AEI, by FEDER (UE), and by European Union NextGenerationEU/PRTR.
+    A.&nbsp;AlMughrabi acknowledges the support of FPI Becas, MICINN, Spain. The authors
+    thankfully acknowledge the RES resources provided by the Barcelona Supercomputing
+    Center on MareNostrum5 for IM-2025-3-0008.</p>
+
+    <!-- The four marks are NOT in the repository: university and funder logos
+         are trademarked and redistributing them is the authors' call, not a
+         thing to scrape. Drop logo-ub.png, logo-tum.png, logo-upf.png and
+         logo-bsc.png into imgs/ and they appear; until then each one hides
+         itself rather than showing a broken-image icon. -->
+    <div class="logo-strip">
+        <a href="https://www.ub.edu/"><img src="imgs/logo-ub.png" alt="Universitat de Barcelona" onerror="this.parentNode.style.display=\'none\'"></a>
+        <a href="https://www.tum.de/"><img src="imgs/logo-tum.png" alt="Technical University of Munich" onerror="this.parentNode.style.display=\'none\'"></a>
+        <a href="https://www.upf.edu/"><img src="imgs/logo-upf.png" alt="Universitat Pompeu Fabra" onerror="this.parentNode.style.display=\'none\'"></a>
+        <a href="https://www.bsc.es/"><img src="imgs/logo-bsc.png" alt="Barcelona Supercomputing Center" onerror="this.parentNode.style.display=\'none\'"></a>
     </div>
 
     <h2>Citation</h2>
