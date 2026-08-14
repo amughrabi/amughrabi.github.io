@@ -41,10 +41,22 @@
         .caveat { background: #fbfbf4; border-left: 4px solid #b9b98a;
                   padding: 10px 14px; font-size: 15px; margin: 18px 0; }
         footer { margin: 46px 0 30px; font-size: 14px; color: #666; text-align: center; }
+        /* Never let a long token (a URL in the BibTeX, a wide table cell)
+           stretch the page and force horizontal scrolling of the whole body. */
+        .citation { overflow-x: auto; word-break: break-word; }
+        .table-responsive { margin-bottom: 16px; }
+        img { max-width: 100%; height: auto; }
+
+        /* ---- narrow screens ------------------------------------------------
+           Bootstrap collapses the grid on its own; these rules size the things
+           it does not: display type set for a 980px column, the fixed-width
+           icon cells, and the gaps between flex items, which at 42px eat most
+           of a phone's width. */
         /* TL;DR: the one thing a visitor should leave with if they read no
            further, set above the abstract rather than inside it. */
+        .tldr-heading { margin-top: 8px; margin-bottom: 10px; }
         .tldr { border-left: 5px solid #1b9e77; background: #f6fbf9;
-                padding: 16px 20px; margin: 6px 0 26px; border-radius: 4px; }
+                padding: 16px 20px; margin: 0 0 26px; border-radius: 4px; }
         .tldr-lead { font-size: 19px; line-height: 1.5; margin-bottom: 10px; }
         .tldr-sub { font-size: 15.5px; color: #444; margin-bottom: 0;
                     text-align: justify; }
@@ -57,6 +69,29 @@
         .logo-strip img { height: 58px; width: auto; filter: grayscale(100%);
                           opacity: .75; transition: opacity .2s, filter .2s; }
         .logo-strip a:hover img { filter: none; opacity: 1; }
+        /* Narrow-screen overrides LAST, so they win against the rules above:
+           .tldr-sub sets text-align: justify, and a media query placed
+           earlier in the sheet lost to it on specificity ties. */
+        @media (max-width: 767.98px) {
+            html, body { overflow-x: hidden; }
+            body { font-size: 15px; }
+            h1 { font-size: 26px; line-height: 1.25; }
+            h2 { font-size: 22px; margin-top: 26px; }
+            h3 { font-size: 18px; }
+            .container { padding-left: 14px; padding-right: 14px; }
+            .abstract, .lead-text, .tldr-sub, figcaption { text-align: left; }
+            .tldr { padding: 13px 15px; }
+            .tldr-lead { font-size: 17px; }
+            .icon-container { gap: 16px; }
+            .icon-container a { width: 84px; }
+            .icon-container img { width: 44px; height: 44px; }
+            .icon-container span { font-size: 13px; }
+            .logo-strip { gap: 22px; }
+            .logo-strip img { height: 42px; }
+            .outcome-row .outcome { margin-bottom: 14px; }
+            table { font-size: 13px; }
+            .citation { font-size: 12px; }
+        }
     </style>
 </head>
 <body>
@@ -112,18 +147,19 @@
 
     <div class="row">
         <div class="col-12">
+            <h2 class="tldr-heading">TL;DR</h2>
             <div class="tldr">
                 <p class="tldr-lead">A free, hand-crafted spectral prior is worth more to a
-                small transformer than two rounds of self-supervised pre-training &mdash; and
-                worth nothing at all to a convolutional network that already has enough data.
-                Which of those you get is measurable <em>before</em> you train the combined
-                system.</p>
+                small transformer than two rounds of self-supervised pre-training. To a
+                convolutional network that already has enough data it is worth nothing at
+                all. Which of those two you are about to get is measurable
+                <em>before</em> you train the combined system.</p>
                 <p class="tldr-sub">We ran the comparison the field keeps making informally:
                 every intervention under one frozen recipe, on byte-identical images, with its
                 compute cost declared. The gain then decomposes as
-                &Delta;&nbsp;=&nbsp;<em>G</em>&nbsp;+&nbsp;readout(base) &mdash; what a source
-                does to the features, plus what the classifier can cash in &mdash; and the
-                sign of that second term is correct on 85.7<!--auditRate-->% of the cells that
+                &Delta;&nbsp;=&nbsp;<em>G</em>&nbsp;+&nbsp;readout(base): what a source does to the
+                features, plus what the classifier can cash in. The sign of that second
+                term is correct on 85.7<!--auditRate-->% of the cells that
                 can test it. Sources supplying the <em>same</em> currency substitute; sources
                 supplying different ones stack; fusing into an already-informed initialization
                 taxes you in proportion to what that initialization was worth.</p>
@@ -133,8 +169,8 @@
                 <p>Fusing prior knowledge with data-driven learning is attractive precisely
                 where data is scarce, yet no controlled account says when such fusion helps,
                 when it is redundant, and when it harms. We benchmark
-                one fixed, hand-crafted source of knowledge &mdash; a pinned bank of Gabor
-                targets injected only during training at ~2% compute overhead &mdash; against
+                one fixed, hand-crafted source of knowledge, a pinned bank of Gabor
+                targets injected only during training at ~2% compute overhead, against
                 the data-driven alternatives (SimCLR, SimSiam and DINO pre-training, ImageNet
                 transfer, heavy augmentation, learned teachers) under one frozen recipe with
                 fixed subsets: 13 datasets, 9 backbones, 500 to 1.28M images, 32 to 224&nbsp;px,
@@ -166,7 +202,7 @@
 
     <h2>The three outcomes</h2>
     <p class="lead-text">Combining two sources of knowledge produces one of three outcomes,
-    and which one you get is not predictable from the sources' family names &mdash; the same
+    and which one you get is not predictable from the sources' family names. The same
     prior is redundant with effective self-supervision and complementary with augmentation.
     It <em>is</em> predictable from a cheap measurement on frozen features, taken before the
     combination is built.</p>
@@ -174,7 +210,7 @@
     <div class="row outcome-row">
         <div class="col-md-4 d-flex">
         <div class="outcome stack">
-        <h3>Stack &mdash; different currencies</h3>
+        <h3>Stack: different currencies</h3>
         <p>The prior injects oriented-energy <em>structure</em>; heavy augmentation teaches
         invariance to nuisance transforms. Different currencies, so they compound. On
         ViT-tiny at 10% of CIFAR-100, the prior adds +13.3 under the plain recipe and
@@ -183,7 +219,7 @@
         </div>
         <div class="col-md-4 d-flex">
         <div class="outcome substitute">
-        <h3>Substitute &mdash; same currency</h3>
+        <h3>Substitute: same currency</h3>
         <p>The prior and contrastive pre-training fill the same feature deficit, so combining
         them adds nothing over the better single source. Measured on the feature side:
         whichever source has the larger frozen-feature gain is the one that wins end-to-end,
@@ -192,7 +228,7 @@
         </div>
         <div class="col-md-4 d-flex">
         <div class="outcome tax">
-        <h3>Tax &mdash; fusing into an already-informed initialization</h3>
+        <h3>Tax: fusing into an already-informed initialization</h3>
         <p>Injecting the prior on top of ImageNet weights is destructive everywhere, and the
         damage is proportional to what the initialization was contributing: up to
         <strong>&minus;17</strong> points on photographic data, and statistically zero on
@@ -213,8 +249,8 @@
         (395<!--auditCorrect--> of 461<!--auditResolvable-->, and 94.2<!--auditBelowRate-->%
         on the scarce-data flank). It is informative on
         the scarce-data flank, where the readout term is large and negative, and close to
-        uninformative once that term has decayed to nothing &mdash; we say so rather than
-        report a single headline rate.</figcaption>
+        uninformative once that term has decayed to nothing, and we say so rather than
+        reporting a single headline rate.</figcaption>
     </figure>
 
     <div class="caveat">
@@ -230,7 +266,7 @@
     <figure>
         <img src="imgs/envelopes.png" alt="Gain envelopes across data fractions">
         <figcaption><strong>Every effect moves with the data regime.</strong> The gain rises,
-        peaks and decays to zero as data becomes sufficient &mdash; which is why the benchmark
+        peaks and decays to zero as data becomes sufficient. That is why the benchmark
         measures full envelopes rather than one or two fractions. Reading a two-point grid was
         the single most common way we misled ourselves, and the paper documents each instance.
         </figcaption>
@@ -238,6 +274,7 @@
 
     <h2>Selected results</h2>
     <h3>Attention at small scale is where the prior matters most</h3>
+    <div class="table-responsive">
     <table class="table table-sm table-striped">
         <thead><tr><th>CIFAR-100, ViT-tiny</th><th class="text-right">Baseline</th>
         <th class="text-right">+ Prior</th><th class="text-right">&Delta;</th></tr></thead>
@@ -249,10 +286,12 @@
         <tr><td>ViT-B/16 @224&nbsp;px, ImageNet-100</td><td class="text-right">43.33</td><td class="text-right">69.34</td><td class="text-right"><strong>+26.01</strong></td></tr>
         </tbody>
     </table>
+    </div>
     <p class="tbl-note">The deficit grows with model scale rather than shrinking, and persists
     at 1.28M images where every ResNet is neutral (+0.04).</p>
 
     <h3>Cost normalization, and what happens when the comparator gets more</h3>
+    <div class="table-responsive">
     <table class="table table-sm table-striped">
         <thead><tr><th>CIFAR-100, ResNet-18</th><th class="text-right">Cost</th>
         <th class="text-right">5%</th><th class="text-right">10%</th><th class="text-right">25%</th></tr></thead>
@@ -267,6 +306,7 @@
             <td class="text-right">+14.38</td><td class="text-right">+10.92</td><td class="text-right">+2.77</td></tr>
         </tbody>
     </table>
+    </div>
     <p class="tbl-note">Reported plainly: on convolutional backbones, once you can afford
     5&times; compute, contrastive pre-training beats the free prior at every fraction we
     measured. The prior's convolutional case is one of cost, not accuracy. On attention
@@ -279,12 +319,12 @@
     why they are worth reporting.</p>
 
     <div class="outcome substitute">
-        <strong>Semantic segmentation</strong> &mdash; six populations (PASCAL VOC,
+        <strong>Semantic segmentation.</strong> Six populations (PASCAL VOC,
         Cityscapes, FoodSeg103, ADE20K, Pascal-Context, and a Swin-T arm),
         216<!--denseCells--> runs at the same 200-epoch budget the classification
         recipe uses. The envelope keeps its shape and its neutrality at full data,
-        but a dense target supervising a dense task &mdash; the venue most
-        favourable to this prior &mdash; pays <em>less</em> than classification does
+        but a dense target supervising a dense task, the venue most
+        favourable to this prior, pays <em>less</em> than classification does
         at matched supervision density: +0.39<!--denseVocOneDelta-->&nbsp;mIoU at
         about five images per class, against a universal
         &asymp;&nbsp;+1.5 floor on classification. Target&ndash;task alignment is
@@ -292,7 +332,7 @@
     </div>
 
     <div class="outcome tax">
-        <strong>Object detection</strong> &mdash; on the same VOC images, a null end
+        <strong>Object detection.</strong> On the same VOC images this is a null end
         to end <em>and</em> under the frozen-feature probe
         (<em>G</em>(fg_acc) = &minus;0.16<!--detOneGFgAcc--> at 1%, against a
         pre-registered falsifier of +1.5), so the null is the prior rather than a
@@ -325,6 +365,7 @@
     </ol>
 
     <h2>The benchmark</h2>
+    <div class="table-responsive">
     <table class="table table-sm">
         <tbody>
         <tr><th style="width:34%">Scale</th><td>2,978<!--computeCells--> classification configurations over 9,079<!--computeRuns--> training runs, plus 216<!--denseCells--> segmentation and 36<!--detCells--> detection runs</td></tr>
@@ -334,11 +375,12 @@
             Swin, ViT-tiny/S/B</td></tr>
         <tr><th>Data scale</th><td>500 to 1.28M images; 32 to 224&nbsp;px; 5.7M to 86M parameters</td></tr>
         <tr><th>Comparators</th><td>SimCLR, SimSiam, DINO, ImageNet transfer, DeiT augmentation,
-            learned teachers &mdash; each at a declared multiple of baseline training cost</td></tr>
+            learned teachers, each at a declared multiple of baseline training cost</td></tr>
         <tr><th>Protocol</th><td>One frozen recipe; fixed per-class subset indices shared by
             every run; numerically pinned filter banks; every table regenerated by command</td></tr>
         </tbody>
     </table>
+    </div>
 
     <div class="caveat">
         <strong>What we disclose.</strong> Configuration selection used the test split on
@@ -346,7 +388,7 @@
         unknown size; the chosen setting was then applied verbatim to twelve further datasets
         that played no part in selection. Comparator tuning parity is asymmetric by
         construction under cost normalization, so our self-supervised numbers are lower
-        bounds &mdash; and we measured how far below by re-running them at four times their
+        bounds, and we measured how far below by re-running them at four times their
         budget. Two accuracy claims of ours did not survive that test and were withdrawn.
     </div>
 
@@ -359,16 +401,17 @@
     thankfully acknowledge the RES resources provided by the Barcelona Supercomputing
     Center on MareNostrum5 for IM-2025-3-0008.</p>
 
-    <!-- The four marks are NOT in the repository: university and funder logos
-         are trademarked and redistributing them is the authors' call, not a
-         thing to scrape. Drop logo-ub.png, logo-tum.png, logo-upf.png and
-         logo-bsc.png into imgs/ and they appear; until then each one hides
-         itself rather than showing a broken-image icon. -->
+    <!-- Affiliation marks, taken from Wikimedia Commons where each is CC0 or
+         public domain, normalised to a common 160px height and stripped of the
+         654KB ICC profile the UPF source carried. No BSC mark: Commons has only
+         photographs of the building, and bsc.es publishes no downloadable logo,
+         so the compute credit stays in the acknowledgement text above. Each
+         image hides itself if its file is missing rather than showing a broken
+         icon. -->
     <div class="logo-strip">
         <a href="https://www.ub.edu/"><img src="imgs/logo-ub.png" alt="Universitat de Barcelona" onerror="this.parentNode.style.display=\'none\'"></a>
         <a href="https://www.tum.de/"><img src="imgs/logo-tum.png" alt="Technical University of Munich" onerror="this.parentNode.style.display=\'none\'"></a>
         <a href="https://www.upf.edu/"><img src="imgs/logo-upf.png" alt="Universitat Pompeu Fabra" onerror="this.parentNode.style.display=\'none\'"></a>
-        <a href="https://www.bsc.es/"><img src="imgs/logo-bsc.png" alt="Barcelona Supercomputing Center" onerror="this.parentNode.style.display=\'none\'"></a>
     </div>
 
     <h2>Citation</h2>
