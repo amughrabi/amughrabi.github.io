@@ -161,8 +161,9 @@
                 features, plus what the classifier can cash in. The sign of that second
                 term is correct on 86.4<!--auditRate-->% of the cells that
                 can test it. Sources supplying the <em>same</em> currency substitute; sources
-                supplying different ones stack; fusing into an already-informed initialization
-                taxes you in proportion to what that initialization was worth.</p>
+                supplying different ones stack; fusing a strong shaping
+                prior into an already-informed initialization interferes in proportion to what
+                that initialization was worth.</p>
             </div>
             <h2>Abstract</h2>
             <div class="abstract">
@@ -228,10 +229,11 @@
         </div>
         <div class="col-md-4 d-flex">
         <div class="outcome tax">
-        <h3>Tax: fusing into an already-informed initialization</h3>
+        <h3>Interference: fusing into an already-informed initialization</h3>
         <p>Injecting the prior on top of ImageNet weights is destructive everywhere, and the
-        damage is proportional to what the initialization was contributing: up to
-        <strong>&minus;17</strong> points on photographic data, and statistically zero on
+        damage is proportional to what the initialization was contributing and to how hard
+        the prior shapes: <strong>&minus;16 to &minus;18</strong> points on photographic data at full
+        auxiliary strength, vanishing below it, and statistically zero on
         histopathology where those weights were worth little to begin with. Probing confirms
         the loss is feature-side, not a classifier failure.</p>
         </div>
@@ -363,8 +365,9 @@
             expect <strong>substitution</strong>: take the cheaper source.</li>
         <li>If they differ in kind, expect <strong>stacking</strong>.</li>
         <li>If one source is a mature initialization, do not inject a shaping prior on top:
-            expect a <strong>tax</strong> proportional to what that initialization supplies,
-            measurable in advance as its advantage over training from scratch.</li>
+            expect <strong>interference</strong> proportional to what that initialization supplies
+            and to the shaping strength, measurable in advance as its advantage over
+            training from scratch; a weak auxiliary weight removes the damage.</li>
     </ol>
 
     <h2>The benchmark</h2>
