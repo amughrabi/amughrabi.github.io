@@ -1,7 +1,11 @@
-Ahmad AlMughrabi is a predoctoral scholar at the University of Barcelona specialising
-in Deep Learning and Computer Vision in Barcelona, Spain.
-Moreover, I am an experienced Software Engineer with a demonstrated history of working
-in the computer software industry. I am skilled in Java, Python, FE & DevOps technologies.
-Energetic engineering professional with an Honours Master's degree focused in
-Computer Science from the University of Jordan in 2020, Amman, Jordan. He received an
-Honours BSc in Computer Science from the Zarqa University in 2012 in Zarqa, Jordan.
+Ahmad AlMughrabi is a PhD candidate at the Faculty of Mathematics and Computer Science,
+Universitat de Barcelona, Spain, and a member of the AIBA research group, supervised by
+Petia Radeva and Ricardo Marques. His research applies neural radiance fields and 3D
+reconstruction to accurate volume estimation of objects, with food and dietary assessment
+as the driving application. He was a visiting researcher at the Technical University of
+Munich (October 2025 - January 2026), and his team won the MetaFood workshop challenge at
+CVPR 2024 and placed first in the MetaFood CVPR 2026 Challenge.
+Before the PhD he spent more than ten years as a software engineer (Atypon, Glovo), working
+in Java, Python, front-end and DevOps technologies. He received an Honours Master's degree
+in Computer Science from the University of Jordan, Amman, Jordan, in 2020, and an Honours
+BSc in Computer Science from Zarqa University, Zarqa, Jordan, in 2012.
