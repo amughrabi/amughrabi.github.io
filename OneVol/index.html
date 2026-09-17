@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OneVol &mdash; When Does Geometry Add to Recognition?</title>
+    <meta name="description" content="A fusion benchmark for monocular volume estimation. A class prior with no image geometry beats the full monocular chain in 23 of 24 dataset-backbone cells; geometry adds only when fused on recognition's terms, a gain confirmed on pre-registered held-out objects and dishes. Eight datasets, 46 fusion pools, a 14-model vision-language panel, 946,545 released per-item predictions.">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { font-size: 16px; }
+        .abstract, .lead-text { text-align: justify; }
+        .author-list { display: flex; justify-content: center; flex-wrap: wrap; padding-left: 0; }
+        .author-item { margin: 8px 10px; text-align: center; }
+        .icon-container { display: flex; justify-content: center; align-items: flex-start;
+                          gap: 28px; flex-wrap: wrap; margin: 18px 0 6px; }
+        .icon-container a { display: flex; flex-direction: column; align-items: center;
+                            text-decoration: none; color: #333; width: 110px; }
+        .icon-container img { width: 56px; height: 56px; }
+        .icon-container span { text-align: center; font-size: 14px; margin-top: 6px; }
+        figure { margin: 22px 0; }
+        figure img { width: 100%; border: 1px solid #e6e6e6; border-radius: 4px; }
+        figcaption { font-size: 14px; color: #555; margin-top: 8px; text-align: justify; }
+        h2 { margin-top: 34px; font-size: 28px; }
+        h3 { margin-top: 22px; font-size: 21px; }
+        table { font-size: 14px; }
+        table th { border-top: none; }
+        .tbl-note { font-size: 13px; color: #666; margin-top: -8px; }
+        .finding { border-left: 4px solid #ccc; padding: 4px 0 4px 14px; margin-bottom: 16px; }
+        /* The five findings are the paper's spine; each carries the colour of
+           the channel it concerns. Bootstrap's grid collapses the paired
+           columns back to one under 768px. */
+        .finding h3 { margin-top: 0; font-size: 18px; }
+        .finding p { font-size: 15px; margin-bottom: 6px; }
+        .semantic  { border-left-color: #6A51A3; }
+        .validity  { border-left-color: #C44E52; }
+        .vlm       { border-left-color: #4C72B0; }
+        .fusion    { border-left-color: #55A868; }
+        .human     { border-left-color: #d9a300; }
+        .citation { background: #f7f7f7; padding: 12px; border-radius: 4px;
+                    font-family: monospace; font-size: 13px; white-space: pre-wrap;
+                    overflow-x: auto; word-break: break-word; }
+        .caveat { background: #fbfbf4; border-left: 4px solid #b9b98a;
+                  padding: 10px 14px; font-size: 15px; margin: 18px 0; }
+        /* The registered result is the one claim here that was fixed before its
+           data existed, so it is set apart: a reader can see at a glance which
+           numbers on this page are confirmatory and which are exploratory. */
+        .registered { background: #f4f8f4; border-left: 4px solid #55A868;
+                      padding: 12px 16px; font-size: 15px; margin: 18px 0; }
+        footer { margin: 46px 0 30px; font-size: 14px; color: #666; text-align: center; }
+        .table-responsive { margin-bottom: 16px; }
+        img { max-width: 100%; height: auto; }
+        /* TL;DR: the one thing a visitor should leave with if they read no
+           further, set above the abstract rather than inside it. */
+        .tldr-heading { margin-top: 8px; margin-bottom: 10px; }
+        .tldr { border-left: 5px solid #6A51A3; background: #f8f6fb;
+                padding: 16px 20px; margin: 0 0 26px; border-radius: 4px; }
+        .tldr-lead { font-size: 19px; line-height: 1.5; margin-bottom: 10px; }
+        .tldr-sub { font-size: 15.5px; color: #444; margin-bottom: 0;
+                    text-align: justify; }
+        /* The graphical abstract is a landscape dashboard of six tiles carrying
+           5pt panel type, so it takes the full column width. */
+        .ga-figure { margin-left: auto; margin-right: auto; }
+        /* The four facts under the title, as panels rather than a clause. Each
+           carries the colour of the finding it belongs to, and the count is the
+           thing a visitor reads first; the label explains it. Four across on a
+           desktop, two across on a phone. */
+        .stat-strip { display: flex; justify-content: center; flex-wrap: wrap;
+                      gap: 14px; margin: 22px 0 6px; }
+        .stat { flex: 1 1 150px; max-width: 200px; background: #fbfbfc;
+                border: 1px solid #ececf0; border-top: 3px solid #ccc;
+                border-radius: 4px; padding: 12px 10px 10px; }
+        .stat-num { font-size: 30px; line-height: 1.05; font-weight: 700; }
+        .stat-label { font-size: 13.5px; color: #555; margin-top: 4px; }
+        .stat-sub { font-size: 12px; color: #888; margin-top: 2px; }
+        .stat.s-data { border-top-color: #C44E52; } .stat.s-data .stat-num { color: #C44E52; }
+        .stat.s-pool { border-top-color: #55A868; } .stat.s-pool .stat-num { color: #55A868; }
+        .stat.s-vlm  { border-top-color: #4C72B0; } .stat.s-vlm  .stat-num { color: #4C72B0; }
+        .stat.s-reg  { border-top-color: #6A51A3; } .stat.s-reg  .stat-num { color: #6A51A3; }
+        /* Affiliation and funder marks: height-matched, greyed back so they
+           read as credits, not as branding. */
+        .logo-strip { display: flex; align-items: center; justify-content: center;
+                      gap: 42px; flex-wrap: wrap; margin: 26px 0 8px; }
+        .logo-strip img { height: 58px; width: auto; filter: grayscale(100%);
+                          opacity: .75; transition: opacity .2s, filter .2s; }
+        .logo-strip a:hover img { filter: none; opacity: 1; }
+        /* Narrow-screen overrides last, so they win specificity ties. */
+        @media (max-width: 767.98px) {
+            html, body { overflow-x: hidden; }
+            body { font-size: 15px; }
+            h1 { font-size: 26px; line-height: 1.25; }
+            h2 { font-size: 22px; margin-top: 26px; }
+            h3 { font-size: 18px; }
+            .container { padding-left: 14px; padding-right: 14px; }
+            .abstract, .lead-text, .tldr-sub, figcaption { text-align: left; }
+            .tldr { padding: 13px 15px; }
+            .tldr-lead { font-size: 17px; }
+            .icon-container { gap: 16px; }
+            .icon-container a { width: 84px; }
+            .icon-container img { width: 44px; height: 44px; }
+            .icon-container span { font-size: 13px; }
+            .logo-strip { gap: 22px; }
+            .logo-strip img { height: 42px; }
+            .finding { margin-bottom: 14px; }
+            table { font-size: 13px; }
+            .citation { font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-4" style="max-width: 980px;">
+
+    <div class="row">
+        <div class="col-12 text-center mb-2">
+            <h1 class="mb-3">When Does Geometry Add to Recognition?</h1>
+            <p class="text-muted" style="font-size:18px; margin-top:-6px;">
+                <strong>OneVol</strong>: a fusion benchmark for monocular volume estimation
+            </p>
+
+            <div class="stat-strip">
+                <div class="stat s-data">
+                    <div class="stat-num">8</div>
+                    <div class="stat-label">datasets</div>
+                    <div class="stat-sub">five of six volume sets fail a criterion</div>
+                </div>
+                <div class="stat s-pool">
+                    <div class="stat-num">46</div>
+                    <div class="stat-label">fusion pools</div>
+                    <div class="stat-sub">plus 30 controls, against an oracle</div>
+                </div>
+                <div class="stat s-vlm">
+                    <div class="stat-num">14</div>
+                    <div class="stat-label">vision&ndash;language models</div>
+                    <div class="stat-sub">2B to 235B, identical crops</div>
+                </div>
+                <div class="stat s-reg">
+                    <div class="stat-num">2</div>
+                    <div class="stat-label">pre-registrations</div>
+                    <div class="stat-sub">one confirmed, one failed</div>
+                </div>
+            </div>
+
+            <ul class="list-inline author-list">
+                <li class="list-inline-item author-item">
+                    <a href="https://amughrabi.github.io/">Ahmad AlMughrabi</a>
+                    <br>Universitat de Barcelona
+                </li>
+                <li class="list-inline-item author-item">
+                    <a href="https://scholar.google.com/citations?user=vb6I29IAAAAJ">Farid Al-Areqi</a>
+                    <br>Universitat de Barcelona
+                </li>
+                <li class="list-inline-item author-item">
+                    <a href="https://scholar.google.com/citations?user=F0oIOJQAAAAJ">Umair Haroon</a>
+                    <br>Universitat de Barcelona
+                </li>
+                <li class="list-inline-item author-item">
+                    <a href="https://orcid.org/0009-0006-6778-5238">Shervin Naderi</a>
+                    <br>TU Wien
+                </li>
+                <li class="list-inline-item author-item">
+                    <a href="https://scholar.google.com/citations?user=biF5W7IAAAAJ">Hyunjun Jung</a>
+                    <br>LG Graduate School of AI
+                </li>
+                <li class="list-inline-item author-item">
+                    <a href="https://cvl.tuwien.ac.at/staff/martin-kampel/">Martin Kampel</a>
+                    <br>TU Wien
+                </li>
+                <li class="list-inline-item author-item">
+                    <a href="https://www.asg.ed.tum.de/pf/team/benjamin-busam/">Benjamin Busam</a>
+                    <br>Technical University of Munich
+                </li>
+                <li class="list-inline-item author-item">
+                    <a href="https://ricjm.github.io/">Ricardo Marques</a>
+                    <br>Universitat de Barcelona
+                </li>
+                <li class="list-inline-item author-item">
+                    <a href="http://www.ub.edu/cvub/petiaradeva/">Petia Radeva</a>
+                    <br>Universitat de Barcelona
+                </li>
+            </ul>
+
+            <div class="icon-container">
+                <a href="https://github.com/GCVCG/OneVol">
+                    <img src="imgs/paper.png" alt="Paper">
+                    <span>Paper</span>
+                </a>
+                <a href="https://github.com/GCVCG/OneVol">
+                    <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub">
+                    <span>Code &amp; loader</span>
+                </a>
+                <a href="https://github.com/GCVCG/OneVol/releases/tag/v1.1-if">
+                    <img src="imgs/dataset.png" alt="Artefacts">
+                    <span>Per-item predictions &amp; tables</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <h2 class="tldr-heading">TL;DR</h2>
+            <div class="tldr">
+                <p class="tldr-lead">The median volume of same-class training objects, using no
+                image geometry at all, is more accurate than the full monocular pipeline in 23 of
+                24 dataset&ndash;backbone cells. Geometry still adds a little &mdash; but only
+                when it is fused <em>on recognition's terms</em>: keep the class prior and add
+                nothing but the chain's deviation within its own class.</p>
+                <p class="tldr-sub">That rule is the within-class regression read as a
+                decision-level fusion rule. It returns the prior exactly when its partner is
+                constant, so any gain it shows is instance information rather than shrinkage, and
+                a finite-sample condition,
+                <em>r</em><sub>wc</sub><sup>2</sup>&nbsp;&gt;&nbsp;1/<em>n</em><sub>eff</sub>,
+                says before you fuse whether a source can pay for the slope it needs. We
+                registered the test before running it on objects and dishes no analysis had
+                touched: it holds. A second registration, of the same rule extended to several
+                sources at once, does not &mdash; and we report that too.</p>
+            </div>
+
+            <h2>Abstract</h2>
+            <div class="abstract">
+                <p>Decision-level fusion is usually posed for sources of comparable strength; the
+                harder case pairs a strong prior with a weak measurement. Monocular volume
+                estimation is a clean instance: the recognised category carries much of an
+                object's volume, and the geometric pipeline measures it badly. We introduce
+                <em>OneVol</em>, a fusion benchmark that factors a monocular estimate into six
+                channels (category, mask, viewpoint, sensor, depth backbone and integration
+                operator) and combines them with untrained rules, trained combiners and a per-item
+                oracle on eight datasets. The median volume of same-class training objects, with
+                no image geometry, beats the full pipeline in 23 of 24 dataset&ndash;backbone
+                combinations, in all 24 under a symmetric log error, and on 64 of ECUSTFD's 70
+                objects; its &times;41 margin in mean ARE there is &times;2.7 once one degenerate
+                output is removed. Geometry still adds a little when fused on recognition's terms:
+                the within-class regression, read as a fusion rule, keeps the prior and adds only
+                the chain's deviation within its class, lowering ECUSTFD's mean log error by
+                6&ndash;11% for every backbone and beating each trained combiner that nests it
+                there. A pre-registered test on held-out objects and dishes confirms the gain
+                (<em>p</em>&nbsp;=&nbsp;0.016; <em>p</em>&nbsp;=&nbsp;10<sup>&minus;5</sup>); a
+                second registration, of the rule extended to several sources, fails. Untrained
+                rules mostly shrink gross errors, which a constant partner reproduces, and on NOCS
+                13,371 rows carry the evidence of about 46. Three checks transfer to any fusion
+                benchmark built from repeated captures: validity criteria, a constant-source
+                control, and folds grouped by physical object.</p>
+            </div>
+
+            <figure>
+                <img src="imgs/method_overview.png" alt="The channel factorisation, the protocol and one item's fusion">
+                <figcaption><strong>The benchmark at a glance.</strong> A monocular volume estimate
+                is a composition of stages; OneVol names the channels around it, scores every
+                configuration under one scale rule recovered from the scene, and pools the sources
+                axis by axis against a per-item oracle. Right: the three protocol checks, and what
+                fusion does to one ECUSTFD apple.</figcaption>
+            </figure>
+        </div>
+    </div>
+
+    <h2>Video overview</h2>
+    <p class="lead-text">An eight-minute narrated overview of the paper, AI-generated from
+    the article. It is a summary, not a source: every claim it makes is stated with its
+    condition in the sections below, and where the video and the article differ, the
+    article is right.</p>
+    <video class="w-100 mb-4" controls preload="none" poster="imgs/overview.png"
+           src="video/overview.mp4">
+        Your browser does not play MP4; <a href="video/overview.mp4">download the video</a>.
+    </video>
+
+    <h2>Five findings</h2>
+
+    <div class="finding semantic">
+        <h3>1&nbsp;&middot;&nbsp;A prior with no image geometry rivals the chain</h3>
+        <p>The median volume of same-class training objects, fitted on folds grouped by physical
+        object, is more accurate than the monocular chain in 23 of 24 dataset&ndash;backbone
+        cells, in all 24 under a symmetric log error, and on 64 of ECUSTFD's 70 objects. The
+        verdict does not rest on one broken output: ECUSTFD's &times;41 margin in mean ARE is
+        &times;2.7 without the single item whose scale cue saturated. Four published pipelines,
+        reimplemented and run wherever they apply, lose to the same prior &mdash; including
+        ECUSTFD's own coin-reference method, which is sixteen times more accurate than our chain
+        and still loses.</p>
+    </div>
+
+    <figure>
+        <img src="imgs/semantic_vs_geometry.png" alt="Prior versus chain per dataset" style="max-width:560px; display:block; margin:0 auto;">
+        <figcaption><strong>A prior with no image geometry against the full monocular chain</strong>
+        (mean ARE, log scale). The factor is their ratio; bold where the paired interval excludes
+        zero after correction on a dataset with enough distinct targets. MetaFood3D is the one
+        dataset where the chain leads on mean ARE, by a difference whose interval spans zero and
+        which reverses under the log error.</figcaption>
+    </figure>
+
+    <div class="finding fusion">
+        <h3>2&nbsp;&middot;&nbsp;Geometry adds, fused on recognition's terms</h3>
+        <p>Keep the class prior as the anchor and add only the source's deviation within its
+        class: log&nbsp;<em>V&#770;</em>&nbsp;=&nbsp;<em>m&#770;</em><sub>c</sub>&nbsp;+&nbsp;<em>b&thinsp;d</em>.
+        On ECUSTFD this lowers the mean log error by 6&ndash;11% for all four depth backbones
+        (mean ARE 0.159 to 0.146) and beats every trained combiner that nests it &mdash; a
+        log-space stack, the Mundlak regression, a random-intercept model and gradient boosting
+        all do worse. A constant source has no within-class deviation, so the rule returns the
+        prior exactly and cannot be credited for shrinkage. The measurement model predicts the
+        size of the gain where classes hold many targets, and the condition
+        <em>r</em><sub>wc</sub><sup>2</sup>&nbsp;&gt;&nbsp;1/<em>n</em><sub>eff</sub> accounts for
+        13 of the 14 cells where fusing hurts.</p>
+    </div>
+
+    <figure>
+        <img src="imgs/class_anchored.png" alt="Predicted against realised log-RMSE ratio" style="max-width:520px; display:block; margin:0 auto;">
+        <figcaption><strong>What the model predicts fusion gains, and where it is right.</strong>
+        The predicted log-RMSE ratio from the training-fold within-class correlation against the
+        realised out-of-fold ratio, one point per (dataset, source) cell. Below the horizontal
+        line the fusion beats the prior. Open markers fail the finite-sample condition &mdash;
+        they are most of the harm.</figcaption>
+    </figure>
+
+    <div class="finding vlm">
+        <h3>3&nbsp;&middot;&nbsp;Vision&ndash;language models beat the prior only where the benchmark varies</h3>
+        <p>Fourteen members, seven vision encoders, 2B&ndash;235B parameters, identical frozen
+        crops. On ECUSTFD the within-class correlation is 0.02&ndash;0.11 per row and never
+        reaches 0.2 at any scale; on Nutrition5k it is 0.65&ndash;0.73, and on OmniFood8K the
+        median member reaches 0.74, because portions there vary within a class by nearly a factor
+        of two. What the members lack is calibration, not information &mdash; which is exactly the
+        source the class-anchored rule is for: it takes Nutrition5k's median member from 0.545 to
+        0.388 mean ARE, about a third off the prior.</p>
+    </div>
+
+    <figure>
+        <img src="imgs/vlm_scale_ladder.png" alt="Within-class correlation against model size">
+        <figcaption><strong>Model size does not move the within-class correlation; the benchmark
+        does.</strong> Within-class correlation against parameter count, with target-clustered
+        95% intervals. Near zero at every scale on ECUSTFD, near 0.7 on the two mass
+        datasets.</figcaption>
+    </figure>
+
+    <div class="finding fusion">
+        <h3>4&nbsp;&middot;&nbsp;Untrained rules recover mostly shrinkage</h3>
+        <p>Averaging variants of one chain rarely beats its best member, and pairing the chain
+        with a vision&ndash;language model helps mainly by pulling gross overestimates towards a
+        plausible scale &mdash; on ECUSTFD a fixed constant reproduces the whole of that
+        contribution. The combiner that does work is fitted in the space these errors live in: a
+        least-squares stack in log space lowers error by 46% against the best single source over
+        the 46 pools, and by 28% against the log-space constant it contains, so most of what it
+        gains is information from the sources. The same stack fitted in cubic centimetres gains
+        nothing. Fusing two segmentation sources is the largest raw improvement in the study (YCB
+        17.22 to 4.88, NOCS 3.29 to 0.84) &mdash; and a constant beats both fused pools, so it is
+        a repair, not a gain.</p>
+    </div>
+
+    <figure>
+        <img src="imgs/fusion_bracket.png" alt="Oracle headroom versus realised gain per pool">
+        <figcaption><strong>How much fusion could help, and how much it does.</strong> Error
+        removed as a percentage of the best single source's, per channel axis and dataset: by a
+        per-item oracle, by the rule selected on training folds, and by a stack fitted in log
+        space. The oracle bars are long and the realised bars are short almost
+        everywhere.</figcaption>
+    </figure>
+
+    <div class="finding validity">
+        <h3>5&nbsp;&middot;&nbsp;The benchmarks are thinner than their row counts</h3>
+        <p>Five validity criteria &mdash; <span style="font-variant:small-caps">variation,
+        targets, classes, spread, skill</span> &mdash; and five of the six volume datasets fail at
+        least one; three fail a criterion of the data itself, before any method runs. Rows
+        outnumber distinct physical objects by up to 891 to 1: on NOCS, 13,371 rows carry the
+        evidence of about 46 independent ones, and clustering the bootstrap on the object rather
+        than the row widens that dataset's interval by a factor of eight. One dataset resolved to
+        a single usable object until we rebuilt it by registering its own sensor depth; another
+        ships non-watertight meshes whose laptop class a physical bound rejects.</p>
+    </div>
+
+    <h2>A pre-registered confirmation &mdash; and one that failed</h2>
+    <div class="registered">
+        <p>Everything above about the class-anchored rule was found by looking at the data, so we
+        registered the hypotheses, the samples, the tests and the success criteria before running
+        the chain on two samples no analysis had touched, and reported the outcome whichever way
+        it fell.</p>
+        <p><strong>Confirmed.</strong> On the 81 held-out ECUSTFD objects (74 targets, 604 images)
+        the rule lowers the prior's mean log error by 0.034 (95% CI 0.005&ndash;0.076, permutation
+        <em>p</em>&nbsp;=&nbsp;0.016), and on 1,738 held-out Nutrition5k dishes by 0.010, at the
+        floor of 100,000 draws. The effect is <em>larger</em> on the held-out objects than on the
+        paper's own split, so the exploratory estimate was not inflated by selection, and it
+        survives all nine settings of the rule's three free choices. The paper's headline
+        replicates too: the prior beats the chain on 58 to 69 of the 74 new targets.</p>
+        <p><strong>Not confirmed.</strong> A second registration, of the same rule extended to
+        several sources at once, fails on its pre-specified pool: geometry with a
+        vision&ndash;language model gives &minus;0.004 in log error
+        (<em>p</em>&nbsp;=&nbsp;0.64). The operator pool does replicate (+0.007), and we could not
+        find what separates the two. The paper's claim therefore rests on fusing one source's
+        deviation; whether several add anything beyond the best of them is left open.</p>
+        <p class="mb-0">Both plans, the held-out sample lists with their checksums and the frozen
+        analysis code are published releases of the repository, timestamped by the hosting service
+        before the runs they govern:
+        <a href="https://github.com/GCVCG/OneVol/releases/tag/prereg-v2"><code>prereg-v2</code></a>
+        and
+        <a href="https://github.com/GCVCG/OneVol/releases/tag/prereg-v3"><code>prereg-v3</code></a>.</p>
+    </div>
+
+    <h2>The dashboard</h2>
+    <figure class="ga-figure">
+        <img src="imgs/graphical_abstract.png" alt="OneVol results dashboard">
+        <figcaption><strong>The whole argument on one page.</strong> The finding, the rule, the
+        registered confirmation, what the fusion rules recover, which benchmarks can support a
+        claim at all, and what the row counts are really worth &mdash; every panel drawn from the
+        released CSVs, so nothing here can drift from the paper's tables.</figcaption>
+    </figure>
+
+    <h2>The eight datasets</h2>
+    <figure>
+        <img src="imgs/dataset_gallery.png" alt="Sample tiles from the eight datasets">
+        <figcaption><strong>What the benchmark actually sees.</strong> Items from the frozen crops
+        every source is scored on, each tile labelled with its target value. Single foods, plated
+        meals and household objects; the two mass datasets (Nutrition5k, OmniFood8K) enter through
+        the semantic channel and are never pooled with the volume datasets.</figcaption>
+    </figure>
+
+    <h2>The benchmark</h2>
+    <div class="table-responsive">
+    <table class="table table-sm">
+        <tbody>
+        <tr><th style="width:34%">Datasets</th><td>8 &mdash; ECUSTFD, MADIMA23, MRGBD, MetaFood3D,
+            a rebuilt YCB split, NOCS-REAL275, Nutrition5k, OmniFood8K</td></tr>
+        <tr><th>Channels</th><td>6 &mdash; category, support mask, viewpoint, depth sensor, depth
+            backbone, integration operator</td></tr>
+        <tr><th>Fusion pools</th><td>46 reported, plus 30 control pools (12 constant and
+            global-prior controls, 18 panel ensembles), scored under nested rule selection against
+            per-item oracle ceilings, with trained combiners, three published dynamic-selection
+            schemes and an injected-conflict protocol</td></tr>
+        <tr><th>The fusion rule</th><td>Class-anchored:
+            log&nbsp;<em>V&#770;</em>&nbsp;=&nbsp;<em>m&#770;</em><sub>c</sub>&nbsp;+&nbsp;<em>b&thinsp;d</em>,
+            with a constant-source guarantee and the fusion condition
+            <em>r</em><sub>wc</sub><sup>2</sup>&nbsp;&gt;&nbsp;1/<em>n</em><sub>eff</sub> &mdash;
+            computable before any combiner is written</td></tr>
+        <tr><th>Vision&ndash;language panel</th><td>14 members, 2B&ndash;235B, three quantisation
+            settings (bf16, 4-bit NF4, and the 235B member's released FP8), four prompt forms,
+            scored on identical frozen crops</td></tr>
+        <tr><th>Scale protocol</th><td>One recovery rule per scene &mdash; a reference object, the
+            dataset's own sensor, or a documented rig distance; no constant fitted anywhere in the
+            evaluation path</td></tr>
+        <tr><th>Statistics</th><td>Paired differences on folds grouped by physical object,
+            20,000-draw bootstrap clustered on the target, within-class target-block permutation
+            nulls at 100,000 draws, Holm correction within families, and two pre-registered
+            confirmations</td></tr>
+        <tr><th>Released</th><td>557 per-item prediction files holding 946,545 predictions, with
+            per-image scale reports, execution logs, checksums, and an index mapping every table
+            and figure to the file it is written from</td></tr>
+        <tr><th>Compute</th><td>94 hours on one RTX 3090 and 107 H100 GPU-hours on MareNostrum5
+            (&asymp;131&nbsp;kWh, 34&nbsp;kg CO<sub>2</sub>e). Every table and figure regenerates
+            on a CPU in about an hour from the released predictions.</td></tr>
+        </tbody>
+    </table>
+    </div>
+
+    <div class="caveat">
+        <strong>What we disclose.</strong> The class-anchored rule and its three free choices were
+        set after seeing the exploratory data; that is why they were afterwards confirmed under a
+        registered plan, on samples held out from every analysis. The multi-source extension was
+        registered too, and did not replicate on its primary pool. The primary family was fixed
+        before the paired analysis but not pre-registered. Per-pool fusion verdicts are
+        exploratory and no claim rests on any single one. The external baselines are our
+        reimplementations, and bound those methods rather than reproduce them. Two datasets fail
+        the distinct-target criterion and are reported as directions, never verdicts. YCB was
+        rebuilt mid-study and stays outside the confirmatory family. And the gain from fusing
+        geometry is small &mdash; about 6% of the log RMSE on ECUSTFD &mdash; which we would
+        rather state than round up.
+    </div>
+
+    <h2>Acknowledgements</h2>
+    <p class="lead-text">This work was supported by the European Union through the project
+    FoodWISE; the Agency for Management of University and Research Grants (AGAUR)
+    [2021-SGR-01094]; ICREA Academia 2022 (Generalitat de Catalunya); Grants
+    PID2025-173459NB-C21 (TRI-VISION) and PID2025-173459NB-C22 (PULSAR), funded by
+    MICIU/AEI/10.13039/501100011033 and by FEDER/EU; Grant AIA2025-163919-C51 (EXPLORA), funded by
+    MICIU/AEI/10.13039/501100011033, by FEDER (UE), and by European Union NextGenerationEU/PRTR;
+    and an FPI grant from MICINN, Spain, to A.&nbsp;AlMughrabi [PREP2022-000101]. The authors
+    thank the Spanish Supercomputing Network (RES) for resources provided by the Barcelona
+    Supercomputing Center on MareNostrum5 under IM-2025-3-0008 and IM-2026-1-0077.</p>
+
+    <div class="logo-strip">
+        <a href="https://www.ub.edu/"><img src="imgs/logo-ub.png" alt="Universitat de Barcelona"
+           onerror="this.parentNode.style.display='none'"></a>
+        <a href="https://www.tuwien.at/"><img src="imgs/logo-tuwien.png" alt="TU Wien"
+           onerror="this.parentNode.style.display='none'"></a>
+        <a href="https://www.lgresearch.ai/"><img src="imgs/logo-lg.png" alt="LG AI Research"
+           onerror="this.parentNode.style.display='none'"></a>
+        <a href="https://www.tum.de/"><img src="imgs/logo-tum.png" alt="Technical University of Munich"
+           onerror="this.parentNode.style.display='none'"></a>
+        <a href="https://www.bsc.es/"><img src="imgs/logo-bsc.png" alt="Barcelona Supercomputing Center"
+           onerror="this.parentNode.style.display='none'"></a>
+    </div>
+
+    <h2>Citation</h2>
+    <div class="citation">@article{almughrabi2026geometry,
+  title   = {When Does Geometry Add to Recognition? A Fusion Benchmark
+             for Monocular Volume Estimation},
+  author  = {AlMughrabi, Ahmad and Al-Areqi, Farid and Haroon, Umair
+             and Naderi, Shervin and Jung, Hyunjun and Kampel, Martin
+             and Busam, Benjamin and Marques, Ricardo and Radeva, Petia},
+  journal = {Under review},
+  year    = {2026}
+}</div>
+
+    <footer>
+        Universitat de Barcelona &middot; TU Wien &middot; LG Graduate School of AI
+        &middot; Technical University of Munich<br>
+        Channel loader, validity criteria, fusion library and every per-item prediction:
+        <a href="https://github.com/GCVCG/OneVol">github.com/GCVCG/OneVol</a>
+    </footer>
+
+</div>
+</body>
+</html>
