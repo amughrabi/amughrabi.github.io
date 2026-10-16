@@ -203,7 +203,7 @@
 
             <h2 id="method">How RASS works</h2>
             <figure>
-                <img src="imgs/pipeline.png" width="1921" height="1000" alt="The four steps of RASS: describe, generate, test, audit">
+                <img src="imgs/pipeline.png" width="1921" height="985" alt="The four steps of RASS: describe, generate, test, audit">
                 <figcaption>RASS audits a subset-generation procedure, not one lucky subset. Each
                 scene gets a 57-D descriptor, and K-Means splits the benchmark into six regimes. For
                 every budget, RASS draws 400 balanced candidates (equal scenes per regime) and tests
@@ -225,7 +225,7 @@
 
             <h2 id="results">Results</h2>
             <figure>
-                <img src="imgs/frontier.png" width="1921" height="1000" loading="lazy" alt="Cost-reliability frontier with the RASS-48 and RASS-96 operating points">
+                <img src="imgs/frontier.png" width="1921" height="950" loading="lazy" alt="Cost-reliability frontier with the RASS-48 and RASS-96 operating points">
                 <figcaption>The frontier trades scenes for reliability. RASS-48 is the smallest
                 evaluated budget that meets <i>p</i><sub>min</sub>&nbsp;=&nbsp;0.08, and RASS-96 is
                 the first that meets the stricter <i>p</i><sub>min</sub>&nbsp;=&nbsp;0.20.</figcaption>
@@ -243,7 +243,7 @@
             </div>
 
             <figure>
-                <img src="imgs/rass48_audit.png" width="1921" height="1000" loading="lazy" alt="Share of each tolerance that RASS-48 uses">
+                <img src="imgs/rass48_audit.png" width="1921" height="949" loading="lazy" alt="Share of each tolerance that RASS-48 uses">
                 <figcaption>The exported RASS-48 subset, eight scenes from each of the six regimes,
                 passes the global audit on its own. Its largest use of any tolerance is 80%, for
                 the LPIPS KS distance.</figcaption>
@@ -310,7 +310,7 @@ python scripts/reproduce_tables.py</pre>
                 <iframe src="slides/RASS_NeurIPS2026_talk.pdf#view=FitH&pagemode=none" title="RASS slides" loading="lazy"></iframe>
             </div>
             <a class="slides-fallback" href="slides/RASS_NeurIPS2026_talk.pdf">
-                <img src="imgs/title.jpg" width="1920" height="1080" loading="lazy" alt="RASS slides, title slide" style="border:1px solid #e6e6e6; border-radius:4px;">
+                <img src="imgs/title.jpg" width="1921" height="1080" loading="lazy" alt="RASS slides, title slide" style="border:1px solid #e6e6e6; border-radius:4px;">
             </a>
             <p class="slide-links">
                 <a href="slides/RASS_NeurIPS2026_talk.pdf">Open the slides (PDF, 11 slides)</a> &middot;
