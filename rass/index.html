@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RASS Experiments</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="style/style.css">
+</head>
+
+<body>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12 text-center mb-2">
+                <h1 class="mb-4">RASS: Risk-Audited Budget Selection for Compact NeRF Benchmark Subsets</h1>
+                <div class="col-md-12 text-center">
+                    <ul class="list-inline author-list">
+                        <li class="list-inline-item author-item">
+                            <a href="https://amughrabi.github.io/">
+                                Ahmad AlMughrabi
+                            </a>
+                            <br>Universitat de Barcelona
+                        </li>
+                        <li class="list-inline-item author-item">
+                            <a href="https://www.linkedin.com/in/flavi%C3%A0-serret-9a7363349/">
+                                Flavià Serret
+                            </a>
+                            <br>Universitat de Barcelona
+                        </li>
+
+                        <li class="list-inline-item author-item">
+                            <a href="https://ricjm.github.io/">
+                                Ricardo Marques
+                            </a>
+                            <br>Universitat de Barcelona
+                        </li>
+                        <li class="list-inline-item author-item">
+                            <a href="http://www.ub.edu/cvub/petiaradeva/">
+                                Petia Radeva
+                            </a>
+                            <br>Universitat de Barcelona
+                        </li>
+                    </ul>
+                </div>
+                <!-- <p class="lead mb-4">This webpage shows all the experiments we realized for BenchSeg's validation. We recommend zooming in to avoid webpage lag due to the amount of gifs.</p> -->
+                <div class="icon-container"
+                    style="display: flex; justify-content: center; align-items: center; gap: 20px;">
+                    <div class="article">
+                        <a href="https://arxiv.org/abs/2601.07581"
+                            style="display: flex; flex-direction: column; align-items: center; text-decoration: none;">
+                            <img src="imgs/paper.png" class="img-" alt="Paper" style="width:60px;height:60px;">
+                            <span>Paper</span>
+                        </a>
+                    </div>
+                    <div class="github" style="display: flex; flex-direction: column; align-items: center;">
+                        <a href="https://github.com/nobody-eh/RASS"
+                            style="display: flex; flex-direction: column; align-items: center; text-decoration: none;">
+                            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+                                alt="GitHub Logo" style="width:60px;height:60px;">
+                            <span>Code</span>
+                        </a>
+                    </div>
+                    <div class="pretrained-models" style="display: flex; flex-direction: column; align-items: center;">
+                        <a href="https://ubarcelona-my.sharepoint.com/my?id=%2Fpersonal%2Fflserrem7%5Falumnes%5Fub%5Fedu%2FDocuments%2Fahmad%5Fbenchmarking&viewid=083d2d86%2D0ca1%2D43d5%2Da5de%2Df410cc008435"
+                            style="display: flex; flex-direction: column; align-items: center; text-decoration: none;">
+                            <img src="imgs/graf.png" alt="Pretrained Models Icon" style="width:60px;height:60px;">
+                            <span style="text-align: center;">NeRF-benchmarkable</span>
+                        </a>
+                    </div>
+                    <div class="download-data" style="display: flex; flex-direction: column; align-items: center;">
+                        <a href="https://ubarcelona-my.sharepoint.com/:u:/g/personal/aalmugal14_alumnes_ub_edu/ETiRyyTXJL9DhiK8SkTG0sEBz0V-faGZ2SqKWA6478bRRw?e=ZFAR76"
+                            target="popup"
+                            onclick="window.open('https://ubarcelona-my.sharepoint.com/:u:/g/personal/aalmugal14_alumnes_ub_edu/ETiRyyTXJL9DhiK8SkTG0sEBz0V-faGZ2SqKWA6478bRRw?e=ZFAR76','popup','width=600,height=400')">
+                            <img src="imgs/database_icon.png" height="60px"><br>
+                            <span style="text-align: center;">N5k360 Dataset (214G)</span>
+                        </a>
+
+                    </div>
+
+                    <div class="download-data" style="display: flex; flex-direction: column; align-items: center;">
+                        <a href="https://github.com/GCVCG/appweb-Volume-Estimation"
+                            style="display: flex; flex-direction: column; align-items: center; text-decoration: none;">
+                            <img src="icons/android.png" alt="Data Download Icon" style="width:60px;height:60px;">
+                            <span style="text-align: center;">Android app</span>
+                        </a>
+                    </div>
+                    <div class="download-data" style="display: flex; flex-direction: column; align-items: center;">
+                        <a href="https://github.com/GCVCG/pergram-ios"
+                            style="display: flex; flex-direction: column; align-items: center; text-decoration: none;">
+                            <img src="icons/apple.png" alt="Data Download Icon" style="width:60px;height:60px;">
+                            <span style="text-align: center;">IOs app</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-center mb-2">
+                <div class="abstract">
+                    <h2>Abstract</h2>
+                    <p style="text-align: justify">
+                        Reliable benchmarking is essential for comparing NeRF methods fairly, tracking progress, and
+                        ensuring reproducible conclusions across studies. Dataset-scale benchmarking of neural radiance
+                        field (NeRF) systems is expensive because each scene requires separate training and evaluation.
+                        On large and heterogeneous datasets such as Nutrition5k (approximately 5,000 scenes), exhaustive
+                        benchmarking is often impractical, while naive subsampling can produce unreliable aggregate
+                        estimates.
+                        We study <em>budget-aware scene subset selection</em>: selecting a compact set of scenes that
+                        preserves the
+                        conclusions of full-dataset benchmarks under explicit fidelity constraints. We introduce BASS, a
+                        risk-aware benchmarking framework that partitions the descriptor space into regimes, draws
+                        balanced
+                        candidate subsets for coverage, and recommends the smallest subset size whose joint-fidelity
+                        pass
+                        probability meets a target Wilson lower confidence bound.
+
+                        On 3,522 validated Nutrition5k scenes — converted into a NeRF-benchmarkable dataset using
+
+                        <a href="https://arxiv.org/abs/2303.12234">Pre-NeRF 360
+                        </a> and evaluated with Zip-NeRF full-image logs — BASS identifies 48-scene
+                        subsets that
+                        preserve mean PSNR, SSIM, and LPIPS within predefined tolerances while maintaining
+                        distributional
+                        similarity through a Kolmogorov–Smirnov constraint. Relative to exhaustive evaluation on the
+                        validated set,
+                        this reduces the number of benchmarked scenes by approximately 73× while providing an explicit
+                        reliability
+                        criterion for selecting subset sizes.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <h3>Five-Stage Selection Pipeline</h3>
+        <p>The RASS methodology implements a sequential pipeline designed to bridge the gap between data coverage and
+            statistical reliability:</p>
+        <ul>
+            <li><strong>1. Descriptor Extraction:</strong> For every scene, we generate a 57-dimensional descriptor
+                vector summarizing capture conditions, photometric properties, and geometric structure (e.g., camera
+                view coverage and texture complexity).</li>
+            <li><strong>2. Normalization and Regime Discovery:</strong> Descriptors undergo skew-aware normalization and
+                clipping to handle heavy-tailed distributions. We then employ K-Means clustering ($k=6$) to partition
+                the descriptor space into statistically distinct "regimes," ensuring the selection captures the
+                dataset's inherent heterogeneity.</li>
+            <li><strong>3. Balanced Candidate Generation:</strong> To ensure uniform coverage across all identified
+                regimes, candidate subsets are constructed by drawing an equal number of samples per cluster. This
+                randomized sampling process is repeated across trials ($M=400$) for each evaluated budget size.</li>
+            <li><strong>4. Fidelity-Event Audit:</strong> Each candidate subset is evaluated against a "fidelity
+                contract" derived from the full dataset. A subset passes only if it simultaneously satisfies strict
+                mean-gap tolerances for <strong>PSNR (±0.5 dB)</strong>, <strong>SSIM (±0.01)</strong>, and
+                <strong>LPIPS (±0.01)</strong>, while passing a <strong>Kolmogorov–Smirnov (KS)</strong> distributional
+                guardrail to prevent biased selections.
+            </li>
+            <li><strong>5. Risk-Audited Budget Recommendation:</strong> Rather than selecting a single subset, RASS
+                identifies the smallest budget where the <strong>Wilson Lower Confidence Bound (LCB)</strong> of the
+                joint pass probability exceeds a target threshold ($p_{min} = 0.08$). This conservative rule minimizes
+                the probability of endorsing "lucky" samples and identifies the optimal operating point on the
+                cost–reliability frontier.</li>
+        </ul>
+        <div class="figure-container">
+            <img src="imgs/method.png" class="img-fluid w-100">
+        </div>
+        <div class="content mt-4" id="content4" style="text-align: center;">
+            <h2>Results</h2>
+            <div style="text-align: justify">
+                <p>
+                    The empirical evaluation of the <strong>RASS</strong> protocol is conducted on a population of 3,522
+                    validated food scenes from the Nutrition5k dataset. Our experiments demonstrate that the framework
+                    successfully identifies compact subsets that maintain the evaluation integrity of the full benchmark
+                    while providing a controlled reduction in computational overhead.
+                </p>
+
+                <h3>Empirical Reliability Frontier</h3>
+                <p>
+                    The selection process identifies optimal operating points by analyzing the <strong>Cost Reliability
+                        Frontier</strong>. This frontier tracks the joint pass probability, satisfying all mean and
+                    distributional constraints, across increasing budget sizes. Using the Wilson Lower Confidence Bound
+                    (LCB), we determine the smallest budget that meets our reliability target (<em>p<sub>min</sub> =
+                        0.08</em>).
+                </p>
+                <div class="figure-container">
+                    <img src="imgs/frontier.jpg" class="img-fluid w-100" alt="Cost-reliability frontier">
+                </div>
+                <ul>
+                    <li><strong>RASS-48 (Low-cost Screening):</strong> This subset achieves a <strong>~73×
+                            reduction</strong> in scene count. It is the minimal operating point recommended for rapid
+                        model screening and preliminary ablation studies, yielding an empirical pass rate of 0.220 and a
+                        Wilson LCB of 0.182.</li>
+                    <li><strong>RASS-96 (High-reliability Evaluation):</strong> A more robust configuration recommended
+                        for stable performance reporting, showing a significant increase in the Wilson LCB (0.241) under
+                        the same joint fidelity event.</li>
+                </ul>
+
+                <h3>Fidelity Validation of RASS-48</h3>
+                <p>
+                    The exported RASS-48 subset is audited against the full Zip-NeRF population to confirm its
+                    statistical fidelity. The results, summarized in the table below, demonstrate that the subset
+                    preserves the central tendencies and distributional characteristics of the original performance
+                    logs.
+                </p>
+                <div class="table-responsive">
+                    <table class="table table-modern w-100 text-center align-middle">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Full Population</th>
+                                <th>Subset</th>
+                                <th>Δ (Gap)</th>
+                                <th>KS Distance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>PSNR (dB)</strong></td>
+                                <td>18.822</td>
+                                <td>18.976</td>
+                                <td class="highlight">0.153</td>
+                                <td>0.090</td>
+                            </tr>
+                            <tr>
+                                <td><strong>SSIM</strong></td>
+                                <td>0.679</td>
+                                <td>0.685</td>
+                                <td class="highlight">0.005</td>
+                                <td>0.074</td>
+                            </tr>
+                            <tr>
+                                <td><strong>LPIPS</strong></td>
+                                <td>0.341</td>
+                                <td>0.341</td>
+                                <td class="highlight">&lt; 0.001</td>
+                                <td>0.112</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    All deviations remain strictly within the accepted tolerances
+                    (<em>|ΔPSNR| ≤ 0.5</em>, <em>|ΔSSIM| ≤ 0.01</em>). Furthermore, the
+                    <strong>Kolmogorov–Smirnov (KS)</strong> distances are consistently below
+                    the 0.14 guardrail, indicating that the subset reflects the entire metric distribution
+                    rather than just the average performance.
+                </p>
+
+                <h3>Cross-Method Ranking Stability</h3>
+                <p>
+                    To verify the generalizability of the subset beyond the certification method, we conduct a post-hoc
+                    diagnostic across <strong>Instant-NGP</strong> and <strong>Feature-Splatting</strong>. The RASS-48
+                    subset <strong>identically preserves the performance rankings</strong> observed in the full dataset
+                    for both PSNR and SSIM (Zip-NeRF > Feature-Splatting > Instant-NGP).
+                </p>
+                <div class="figure-container">
+                    <img src="imgs/ranking.jpg" class="img-fluid w-100" alt="Rank stability">
+                </div>
+
+                <p>
+                    While the global rankings are preserved, regime-level diagnostics indicate that local fidelity
+                    across all descriptor segments is a harder requirement that may necessitate larger budgets (e.g.,
+                    RASS-96) for segment-specific analysis.
+                </p>
+            </div>
+        </div>
+        <h2>Citation</h2>
+        <p>If you want to cite our work, please use this:</p>
+        <div class="citation">
+            <pre>
+                  @article{almughrabi2026Rass,
+                      title={RASS: Risk-Audited Budget Selection for Compact NeRF Benchmark Subsets},
+                      author={Ahmad AlMughrabi, Flavià Serret, Ricardo Marques, Petia Radeva},
+                      journal={arXiv preprint 2601.07581},
+                      year={2026}
+                  }
+                </pre>
+        </div>
+    </div>
+</body>
+
+</html>
