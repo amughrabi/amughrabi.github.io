@@ -18,6 +18,8 @@
         .abstract, .lead-text { text-align: justify; }
         .venue { font-size: 17px; color: #1b6f63; font-weight: 600; margin-top: -4px; }
         .venue a { color: inherit; }
+        .venue-cover { height: 72px; width: auto; vertical-align: middle; margin-right: 12px;
+                       border: 1px solid #e3e3e3; border-radius: 3px; }
         .author-list { display: flex; justify-content: center; flex-wrap: wrap; padding-left: 0; }
         .author-item { margin: 10px; text-align: center; }
         .icon-container { display: flex; justify-content: center; align-items: flex-start;
@@ -77,6 +79,7 @@
             .icon-container { gap: 10px; }
             .icon-container a { width: 76px; }
             .icon-container img { width: 44px; height: 44px; }
+            .venue-cover { height: 54px; }
             .icon-container span { font-size: 13px; }
             .stats { grid-template-columns: repeat(2, 1fr); gap: 8px; }
             .stat b { font-size: 22px; }
@@ -93,7 +96,7 @@
     <div class="row">
         <div class="col-12 text-center mb-2">
             <h1 class="mb-3">BenchSeg: A Densely Annotated Dataset and Benchmark for Multi-View Food Video Segmentation</h1>
-            <p class="venue">Expert Systems with Applications, 2026 &middot;
+            <p class="venue"><a href="https://doi.org/10.1016/j.eswa.2026.135234"><img class="venue-cover" src="imgs/eswa-cover.jpg" width="300" height="400" alt="Expert Systems with Applications journal cover"></a>Expert Systems with Applications, 2026 &middot;
                 <a href="https://doi.org/10.1016/j.eswa.2026.135234">doi:10.1016/j.eswa.2026.135234</a></p>
 
             <ul class="list-inline author-list">
@@ -192,7 +195,7 @@
                     <a href="video/benchseg-overview.mp4">Download the overview video (MP4)</a>
                 </video>
             </div>
-            <p class="video-note">A two-minute overview (no sound) built from BenchSeg frames, masks and results.
+            <p class="video-note">A two-and-a-half-minute overview (no sound) built from BenchSeg frames, masks and results.
             <a href="video/benchseg-overview.mp4" download>Download MP4</a>.<br>
             Imagery: Nutrition5k, Vegetables &amp; Fruits and FoodKit (CC BY 4.0); MetaFood3D (CC BY-NC 4.0); frames cropped, masks overlaid.</p>
 
