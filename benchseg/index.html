@@ -3,170 +3,327 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BenchSeg Experiments</title>
+    <title>BenchSeg: A Densely Annotated Dataset and Benchmark for Multi-View Food Video Segmentation</title>
+    <meta name="description" content="BenchSeg: 25,284 densely annotated frames of 55 dishes filmed with free 360° camera motion, a zero-shot benchmark of 35 segmentation configurations, and temporal-stability metrics. Expert Systems with Applications, 2026.">
+    <meta property="og:title" content="BenchSeg: A Densely Annotated Dataset and Benchmark for Multi-View Food Video Segmentation">
+    <meta property="og:description" content="25,284 densely annotated frames, 55 dishes, 35 segmentation configurations and temporal-stability metrics. Expert Systems with Applications, 2026.">
+    <meta property="og:image" content="https://amughrabi.github.io/benchseg/imgs/video_poster.jpg">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://amughrabi.github.io/benchseg/">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://amughrabi.github.io/benchseg/">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .gif-container {
-            text-align: center;
-        }
-        .gif-container img {
-            width: 100%;
-        }
-        .abstract {
-            text-align: justify;
-        }
-        .github-logo img {
-            width: 60px;
-            height: auto;
-        }
-        .citation {
-            text-align: justify;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            padding: 10px;
-        }
-        .author-list {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .author-item {
-            margin: 10px;
-            text-align: center;
+        body { font-size: 16px; }
+        .abstract, .lead-text { text-align: justify; }
+        .venue { font-size: 17px; color: #1b6f63; font-weight: 600; margin-top: -4px; }
+        .venue a { color: inherit; }
+        .author-list { display: flex; justify-content: center; flex-wrap: wrap; padding-left: 0; }
+        .author-item { margin: 10px; text-align: center; }
+        .icon-container { display: flex; justify-content: center; align-items: flex-start;
+                          gap: 28px; flex-wrap: wrap; margin: 18px 0 6px; }
+        .icon-container a { display: flex; flex-direction: column; align-items: center;
+                            text-decoration: none; color: #333; width: 110px; }
+        .icon-container img { width: 56px; height: 56px; }
+        .icon-container span { text-align: center; font-size: 14px; margin-top: 6px; }
+        figure { margin: 22px 0; }
+        figure img { width: 100%; border: 1px solid #e6e6e6; border-radius: 4px; }
+        figcaption { font-size: 14px; color: #555; margin-top: 8px; text-align: justify; }
+        h2 { margin-top: 34px; font-size: 28px; }
+        .tldr-heading { margin-top: 8px; margin-bottom: 10px; }
+        .tldr { border-left: 5px solid #1b9e77; background: #f6fbf9;
+                padding: 16px 20px; margin: 0 0 26px; border-radius: 4px; }
+        .tldr-lead { font-size: 19px; line-height: 1.5; margin-bottom: 10px; }
+        .tldr-sub { font-size: 15.5px; color: #444; margin-bottom: 0; text-align: justify; }
+        .caveat { background: #fbfbf4; border-left: 4px solid #b9b98a;
+                  padding: 10px 14px; font-size: 15px; margin: 18px 0; }
+        .metrics { border: 1px solid #cfe3dd; border-radius: 4px; padding: 14px 18px; background: #fbfdfc; }
+        .metrics dt { color: #1b6f63; }
+        .metrics dd { margin-bottom: 8px; }
+        .citation { background: #f7f7f7; padding: 12px; border-radius: 4px;
+                    font-family: monospace; font-size: 13px; white-space: pre-wrap;
+                    overflow-x: auto; word-break: break-word; }
+        .video-wrap { max-width: 640px; margin: 0 auto; }
+        .video-wrap video { width: 100%; height: auto; border: 1px solid #e6e6e6; border-radius: 4px; background: #07131a; }
+        .video-note { font-size: 14px; color: #555; margin-top: 8px; text-align: center; }
+        /* Headline numbers under the links: the result at a glance. */
+        .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 22px 0 6px; }
+        .stat { background: #f6fbf9; border: 1px solid #d5ebe4; border-radius: 6px; padding: 12px 10px; text-align: center; }
+        .stat b { display: block; font-size: 26px; line-height: 1.1; color: #1b6f63; }
+        .stat span { display: block; font-size: 13.5px; color: #555; margin-top: 4px; }
+        .page-nav { text-align: center; font-size: 14.5px; margin: 14px 0 0; }
+        .page-nav a { margin: 0 8px; white-space: nowrap; }
+        h2[id] { scroll-margin-top: 16px; }
+        .logo-strip { display: flex; align-items: center; justify-content: center;
+                      gap: 42px; flex-wrap: wrap; margin: 26px 0 8px; }
+        .logo-strip img { height: 58px; width: auto; filter: grayscale(100%);
+                          opacity: .75; transition: opacity .2s, filter .2s; }
+        .logo-strip a:hover img { filter: none; opacity: 1; }
+        .funding-logos { display: block; max-width: 560px; width: 100%; margin: 18px auto 0; }
+        .citation-wrap { position: relative; }
+        .copy-btn { position: absolute; top: 8px; right: 8px; font-size: 12.5px; padding: 2px 10px;
+                    border: 1px solid #ccc; border-radius: 4px; background: #fff; cursor: pointer; }
+        footer { margin: 46px 0 30px; font-size: 14px; color: #666; text-align: center; }
+        img { max-width: 100%; height: auto; }
+        @media (max-width: 767.98px) {
+            html, body { overflow-x: hidden; }
+            body { font-size: 15px; }
+            h1 { font-size: 26px; line-height: 1.25; }
+            h2 { font-size: 22px; margin-top: 26px; }
+            .container { padding-left: 14px; padding-right: 14px; }
+            .abstract, .lead-text, .tldr-sub, figcaption { text-align: left; }
+            .tldr { padding: 13px 15px; }
+            .tldr-lead { font-size: 17px; }
+            .icon-container { gap: 10px; }
+            .icon-container a { width: 76px; }
+            .icon-container img { width: 44px; height: 44px; }
+            .icon-container span { font-size: 13px; }
+            .stats { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+            .stat b { font-size: 22px; }
+            .page-nav a { margin: 0 5px; }
+            .citation { font-size: 12px; }
+            .logo-strip { gap: 22px; }
+            .logo-strip img { height: 42px; }
         }
     </style>
 </head>
 <body>
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col-12 text-center mb-2">
-                <h1 class="mb-4">BenchSeg: A Large-Scale Dataset and Benchmark for Multi-View Food Video Segmentation</h1>
-                <div class="col-md-12 text-center">
-                <ul class="list-inline author-list">
-                    <li class="list-inline-item author-item">
-                        <a href="https://amughrabi.github.io/">
-                            Ahmad AlMughrabi
-                        </a>
-                        <br>Universitat de Barcelona
-                    </li>
-                    <li class="list-inline-item author-item">
-                        <a href="https://www.linkedin.com/in/guillermo-rivo-03432623a/">
-                            Guillermo Rivo
-                        </a>
-                        <br>Universitat de Barcelona
-                    </li>
-                    <li class="list-inline-item author-item">
-                        <a href="https://www.linkedin.com/in/cajifan/">
-                            Carlos Jiménez-Farfán
-                        </a>
-                        <br>Universitat de Barcelona
-                    </li>
-                    <li class="list-inline-item author-item">
-                        <a href="https://umairharon.github.io/">
-                            Umair Haroon
-                        </a>
-                        <br>Universitat de Barcelona
-                    </li>
-                    <li class="list-inline-item author-item">
-                        <a href="https://www.linkedin.com/in/farid-al-areqi-26a0b12a3">
-                           Farid Al-Areqi
-                        </a>
-                        <br>Universitat de Barcelona
-                    </li>
-                    <li class="list-inline-item author-item">
-                        <a href="https://www.linkedin.com/in/hyunjun-jung-1a5b45107/">
-                            Hyunjun Jung
-                        </a>
-                        <br>Technical University of Munich
-                    </li>
-                    <li class="list-inline-item author-item">
-                        <a href="https://www.professoren.tum.de/en/busam-benjamin">
-                            Benjamin Busam
-                        </a>
-                        <br>Technical University of Munich
-                    </li>
-                    <li class="list-inline-item author-item">
-                        <a href="https://ricjm.github.io/">
-                            Ricardo Marques
-                        </a>
-                        <br>Universitat de Barcelona
-                    </li>
-                    <li class="list-inline-item author-item">
-                        <a href="http://www.ub.edu/cvub/petiaradeva/">
-                            Petia Radeva
-                        </a>
-                        <br>Universitat de Barcelona
-                    </li>
-                </ul>
+<div class="container mt-4" style="max-width: 980px;">
+
+    <div class="row">
+        <div class="col-12 text-center mb-2">
+            <h1 class="mb-3">BenchSeg: A Densely Annotated Dataset and Benchmark for Multi-View Food Video Segmentation</h1>
+            <p class="venue">Expert Systems with Applications, 2026 &middot;
+                <a href="https://doi.org/10.1016/j.eswa.2026.135234">doi:10.1016/j.eswa.2026.135234</a></p>
+
+            <ul class="list-inline author-list">
+                <li class="list-inline-item author-item">
+                    <a href="https://amughrabi.github.io/">Ahmad AlMughrabi</a><sup>*</sup>
+                    <br>Universitat de Barcelona
+                </li>
+                <li class="list-inline-item author-item">
+                    <a href="https://www.linkedin.com/in/guillermo-rivo-03432623a/">Guillermo Rivo</a><sup>*</sup>
+                    <br>Universitat de Barcelona
+                </li>
+                <li class="list-inline-item author-item">
+                    <a href="https://www.linkedin.com/in/farid-al-areqi-26a0b12a3">Farid Al-Areqi</a><sup>*</sup>
+                    <br>Universitat de Barcelona
+                </li>
+                <li class="list-inline-item author-item">
+                    <a href="https://www.linkedin.com/in/cajifan/">Carlos Jiménez-Farfán</a><sup>*</sup>
+                    <br>Universitat de Barcelona
+                </li>
+                <li class="list-inline-item author-item">
+                    <a href="https://umairharon.github.io/">Umair Haroon</a><sup>*</sup>
+                    <br>Universitat de Barcelona
+                </li>
+                <li class="list-inline-item author-item">
+                    <a href="https://www.linkedin.com/in/hyunjun-jung-1a5b45107/">Hyunjun Jung</a>
+                    <br>Technical University of Munich<br>LG Graduate School of AI
+                </li>
+                <li class="list-inline-item author-item">
+                    <a href="https://www.professoren.tum.de/en/busam-benjamin">Benjamin Busam</a>
+                    <br>Technical University of Munich
+                </li>
+                <li class="list-inline-item author-item">
+                    <a href="https://ricjm.github.io/">Ricardo Marques</a><sup>&dagger;</sup>
+                    <br>Universitat Pompeu Fabra
+                </li>
+                <li class="list-inline-item author-item">
+                    <a href="http://www.ub.edu/cvub/petiaradeva/">Petia Radeva</a><sup>&dagger;</sup>
+                    <br>Universitat de Barcelona
+                </li>
+            </ul>
+            <small class="text-muted"><sup>*</sup>Equal contribution &nbsp;&middot;&nbsp; <sup>&dagger;</sup>Equal supervision</small>
+
+            <div class="icon-container">
+                <a href="https://doi.org/10.1016/j.eswa.2026.135234">
+                    <img src="imgs/paper.png" alt="Paper">
+                    <span>Paper (ESWA)</span>
+                </a>
+                <a href="https://github.com/GCVCG/BenchSeg">
+                    <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub">
+                    <span>Code</span>
+                </a>
+                <a href="https://ubarcelona-my.sharepoint.com/:f:/g/personal/ahmad_almughrabi_ub_edu/IgCx8aqExIkET5Oc4SYkXx4LAU90ktza5oF0rYaRtMyJJ0Y?e=nChKFZ">
+                    <img src="imgs/dataset.png" alt="Dataset">
+                    <span>Dataset</span>
+                </a>
+                <a href="https://ubarcelona-my.sharepoint.com/:u:/g/personal/ahmad_almughrabi_ub_edu/IQCvxTYvwLEXRohtfOP8a7QsAQMvgWsfI42CKtXNUpM_5uI?e=Xx1fLs">
+                    <img src="imgs/pretrainedmodels.png" alt="Pretrained models">
+                    <span>Pretrained models (8.15&nbsp;GB)</span>
+                </a>
             </div>
-                <!-- <p class="lead mb-4">This webpage shows all the experiments we realized for BenchSeg's validation. We recommend zooming in to avoid webpage lag due to the amount of gifs.</p> -->
-                <div class="icon-container" style="display: flex; justify-content: center; align-items: center; gap: 20px;">
-                    <div class="article">
-                        <a href="https://arxiv.org/abs/2601.07581" style="display: flex; flex-direction: column; align-items: center; text-decoration: none;">
-                            <img src="imgs/paper.png" alt="Paper" style="width:60px;height:60px;">
-                            <span>Paper</span>
-                        </a>
-                    </div>
-                    <div class="github" style="display: flex; flex-direction: column; align-items: center;">
-                        <a href="https://github.com/GCVCG/BenchSeg" style="display: flex; flex-direction: column; align-items: center; text-decoration: none;">
-                            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" style="width:60px;height:60px;">
-                            <span>Code</span>
-                        </a>
-                    </div>
-                    <div class="pretrained-models" style="display: flex; flex-direction: column; align-items: center;">
-                        <a href="https://ubarcelona-my.sharepoint.com/:u:/g/personal/ahmad_almughrabi_ub_edu/IQCvxTYvwLEXRohtfOP8a7QsAQMvgWsfI42CKtXNUpM_5uI?e=Xx1fLs" style="display: flex; flex-direction: column; align-items: center; text-decoration: none;">
-                            <img src="imgs/pretrainedmodels.png" alt="Pretrained Models Icon" style="width:60px;height:60px;">
-                            <span style="text-align: center;">Pretrained models (8.15GB)</span>
-                        </a>
-                    </div>
-                    <div class="download-data" style="display: flex; flex-direction: column; align-items: center;">
-                        <a href="https://ubarcelona-my.sharepoint.com/:f:/g/personal/ahmad_almughrabi_ub_edu/IgCx8aqExIkET5Oc4SYkXx4LAU90ktza5oF0rYaRtMyJJ0Y?e=nChKFZ" style="display: flex; flex-direction: column; align-items: center; text-decoration: none;">
-                            <img src="imgs/dataset.png" alt="Data Download Icon" style="width:60px;height:60px;">
-                            <span style="text-align: center;">Dataset</span>
-                        </a>
-                    </div>
-                </div>
+
+            <div class="stats">
+                <div class="stat"><b>25,284</b><span>densely annotated frames</span></div>
+                <div class="stat"><b>55</b><span>dish scenes from 4 public datasets</span></div>
+                <div class="stat"><b>35</b><span>segmentation configurations, tested zero-shot</span></div>
+                <div class="stat"><b>0.3%</b><span>YOLO + XMem2 flicker rate, down from 20.3% for YOLO alone (benchmark mean)</span></div>
             </div>
+
+            <nav class="page-nav" aria-label="On this page">
+                <a href="#tldr">TL;DR</a> <a href="#video">Video</a> <a href="#abstract">Abstract</a>
+                <a href="#method">Method</a> <a href="#metrics">Metrics</a> <a href="#results">Results</a>
+                <a href="#data">Data &amp; code</a> <a href="#acknowledgments">Acknowledgments</a> <a href="#citation">Citation</a>
+            </nav>
         </div>
-        <div class="row">
-            <div class="col-12 text-center mb-2">
-                <div class="abstract">
-                    <h2>Abstract</h2>
-                    <p style="text-align: justify">Food image segmentation is a critical task for dietary analysis, enabling accurate estimation of food volume and nutrients. However, current methods suffer from limited multi-view data and poor generalization to new viewpoints. We introduce BenchSeg, a novel multi-view food video segmentation dataset and benchmark. BenchSeg aggregates 55 dish scenes (from Nutrition5k, Vegetables & Fruits, MetaFood3D, and FoodKit) with 25,284 meticulously annotated frames, capturing each dish under free 360° camera motion. We evaluate a diverse set of 20 state-of-the-art segmentation models (e.g., SAM-based, transformer, CNN, and large multimodal) on the existing FoodSeg103 dataset and evaluate them (alone and combined with video-memory modules) on BenchSeg. Quantitative and qualitative results demonstrate that while standard image segmenters degrade sharply under novel viewpoints, memory-augmented methods maintain temporal consistency across frames. Our best model combinations outperform prior work (e.g., improving over BenchSeg by ~2.5% mAP), offering new insights into food segmentation and tracking for dietary analysis.  </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <h2 class="tldr-heading" id="tldr">TL;DR</h2>
+            <div class="tldr">
+                <p class="tldr-lead">People film their meals with a moving phone, but food segmentation is
+                trained and tested on single photos. BenchSeg measures what happens in between.</p>
+                <p class="tldr-sub">BenchSeg re-annotates 25,284 frames of 55 dishes captured under free
+                360&deg; camera motion, from Nutrition5k, Vegetables &amp; Fruits, MetaFood3D and FoodKit,
+                under one binary food definition. It evaluates 35 segmentation configurations zero-shot (no
+                model is trained on BenchSeg) and adds temporal-stability metrics: continuity, flicker rate
+                and IoU drift. Image-only segmenters flicker as the camera moves. Pairing them with a video
+                memory module (XMem2 or SAM3) makes them stable, and the strongest hybrids, SeTR-MLA + SAM3
+                (95.44% mean mAP) and FoodMem (95.20%), lead the benchmark.</p>
             </div>
-        </div>
-        <div class="content mt-4" id="content2" style="text-align: center;">
-            <h2>Proposed Methodology</h2>
-            <img src="imgs/benchseg.png" alt="Overview of the proposed three-stage methodology: (1) keyframe segmentation generates initial masks, (2) temporal propagation transfers them across non-key frames using stored features, and (3) late fusion refines masks by combining propagated and fresh predictions, enabling a reproducible and temporally coherent food-segmentation process. Camera poses shown in green indicate cases where the matching accuracy threshold $mAP \geq 95\%$ is satisfied; poses in red denote those falling below this threshold." style="text-align: center;"/>
-            <div style="text-align: justify">
-                Overview of the proposed three-stage methodology: (1) keyframe segmentation generates initial masks, (2) temporal propagation transfers them across non-key frames using stored features, and (3) late fusion refines masks by combining propagated and fresh predictions, enabling a reproducible and temporally coherent food-segmentation process. Camera poses shown in green indicate cases where the matching accuracy threshold mAP ≥ 95% is satisfied; poses in red denote those falling below this threshold.
+
+            <h2 id="video">Video</h2>
+            <div class="video-wrap">
+                <video controls muted playsinline preload="metadata" poster="imgs/video_poster.jpg" width="1080" height="1080">
+                    <source src="video/benchseg-overview.mp4" type="video/mp4">
+                    <a href="video/benchseg-overview.mp4">Download the overview video (MP4)</a>
+                </video>
             </div>
-        </div>
-        <div class="content mt-4" id="content4" style="text-align: center;">
-            <h2>Experimental Results</h2>
-            <img src="imgs/comparasions_baselines.png" alt="BenchSeg" style="text-align: center; width: 57%"/>
-            <img src="imgs/comparasions_pies.png" alt="The figure shows the comparison of camera locations for different methods on a Foodkit object, with cameras colored by mAP: red for ≤50%, orange for 50–75%, yellow for 75–95%, and green for ≥95%, highlighting differences in coverage and reliability across methods." style="text-align: center; width: 40%"/>
-            <div style="text-align: justify">The figure shows the comparison of camera locations for different methods on a Foodkit object, with cameras colored by mAP: red for ≤50%, orange for 50–75%, yellow for 75–95%, and green for ≥95%, highlighting differences in coverage and reliability across methods.</div>
-        </div>
-        <div class="content mt-4" id="content5" style="text-align: center;">
-            <h2>Segmentor ❤️ Memory Tracking</h2>
-            <img src="imgs/benchseg_comparisions.png" alt="Comparison of camera locations for the base segmentor, the segmentor with XMem2, and the segmentor with SAM2, with cameras colored by mAP: red for ≤50\, orange for 50–75%, yellow for 75–95%, and green for ≥95%. The visualization highlights how each integration affects segmentation robustness across different viewpoints." style="text-align: center;"/>
-            <div style="text-align: justify">The figure shows the comparison of camera locations for the base segmentor, the segmentor with XMem2, and the segmentor with SAM2, with cameras colored by mAP: red for ≤50\, orange for 50–75%, yellow for 75–95%, and green for ≥95%. The visualization highlights how each integration affects segmentation robustness across different viewpoints.</div>
-        </div>
-        <div class="content mt-4" id="content">
-            <h2>Citation</h2>
-            <p>If you want to cite our work, please use this:</p>
-            <div class="citation">
-                <pre>
-                  @article{almughrabi2026BenchSeg,
-                      title={BenchSeg: BenchSeg: A Large-Scale Dataset and Benchmark for Multi-View Food Video Segmentation},
-                      author={Guillermo Rivo, Carlos Jiménez-Farfán, Umair Haroon, Farid Al-Areqi, Hyunjun Jung, Benjamin Busam, Ricardo Marques, Petia Radeva},
-                      journal={arXiv preprint 2601.07581},
-                      year={2026}
-                  }
-                </pre>
+            <p class="video-note">A two-minute overview (no sound) built from BenchSeg frames, masks and results.
+            <a href="video/benchseg-overview.mp4" download>Download MP4</a>.<br>
+            Imagery: Nutrition5k, Vegetables &amp; Fruits and FoodKit (CC BY 4.0); MetaFood3D (CC BY-NC 4.0); frames cropped, masks overlaid.</p>
+
+            <h2 id="abstract">Abstract</h2>
+            <div class="abstract">
+                <p>Food image segmentation is a critical task for dietary analysis, enabling accurate
+                estimation of food volume and nutrients. However, current methods suffer from limited
+                multi-view data and poor generalization to new viewpoints. We introduce BenchSeg, a novel
+                multi-view food video segmentation dataset and benchmark. BenchSeg aggregates 55 dish scenes
+                (from Nutrition5k, Vegetables &amp; Fruits, MetaFood3D, and FoodKit) with 25,284 meticulously
+                annotated frames, capturing each dish under free 360&deg; camera motion. BenchSeg is large in
+                dense per-frame annotation volume rather than in cuisine or scene-type diversity, and it
+                targets multi-view and free-motion evaluation with cross-dataset and cross-viewpoint
+                comparison within these existing collections, rather than broader food-scene or cuisine-level
+                generalization. We evaluate a diverse set of 35 segmentation configurations (e.g., SAM-based,
+                transformer, CNN, and large multimodal) on the existing FoodSeg103 dataset and evaluate them
+                (alone and combined with video-memory modules) on BenchSeg. Quantitative and qualitative
+                results demonstrate that while standard image segmenters degrade sharply under novel
+                viewpoints, memory-augmented methods maintain temporal consistency across frames. Our best
+                model, the combination SeTR-MLA+SAM3 (SeTM+S3), attains the highest mean mAP across the four
+                partitions (95.44%) and is competitive with the strong FoodMem baseline (95.20%), while
+                matching its best-in-class temporal stability, offering new insights into food segmentation
+                and tracking for dietary analysis. In addition to frame-wise spatial accuracy, we introduce a
+                dedicated temporal evaluation protocol that explicitly quantifies segmentation stability over
+                time through continuity, flicker rate, and IoU drift metrics. This allows us to reveal failure
+                modes that remain invisible under standard per-frame evaluations. We release BenchSeg to
+                foster future research.</p>
+            </div>
+
+            <h2 id="method">Evaluation pipeline</h2>
+            <figure>
+                <img src="imgs/benchseg.png" width="1474" height="736" alt="The three-stage evaluation pipeline: keyframe segmentation, temporal propagation with memory, optional re-seeding and fusion">
+                <figcaption>Every configuration runs through the same three stages: (1) a per-frame
+                segmenter produces the mask of a keyframe; (2) a memory module (XMem2, SAM2, SAM3 or DEVA)
+                propagates it through the remaining frames using stored frame&ndash;mask features; and (3) an
+                optional stage re-seeds every <i>K</i> frames and fuses fresh and propagated masks. All hybrid
+                results in the main tables use single-seed propagation (stages 1 and 2 only). Camera poses in
+                green meet mAP&nbsp;&ge;&nbsp;95%; red ones fall below it.</figcaption>
+            </figure>
+
+            <h2 id="metrics">Temporal stability metrics</h2>
+            <p class="lead-text">Frame-wise scores cannot tell a steady mask from one that flickers on and
+            off. BenchSeg therefore scores each sequence from its per-frame IoU with the ground truth:</p>
+            <dl class="metrics">
+                <dt>Continuity <i>C</i><sub>&gamma;</sub></dt>
+                <dd>the fraction of consecutive frame pairs whose IoU both stay at or above &gamma; = 0.5,
+                the usual &ldquo;acceptable mask&rdquo; threshold.</dd>
+                <dt>Flicker rate <i>FR</i><sub>&delta;</sub></dt>
+                <dd>the fraction of consecutive frames where IoU drops by more than &delta; = 0.2.</dd>
+                <dt>IoU drift &Delta;IoU and volatility &sigma;IoU</dt>
+                <dd class="mb-0">the mean absolute frame-to-frame change in IoU, and its standard deviation
+                over the sequence. All metrics are averaged per scene, then across the scenes of each
+                partition; the method ranking is stable across &gamma; &isin; [0.4, 0.7] and &delta; &isin;
+                [0.1, 0.3] (Spearman &rho; &ge; 0.97).</dd>
+            </dl>
+
+            <h2 id="results">Results</h2>
+            <figure>
+                <img src="imgs/graphical_abstract.png" width="2700" height="1830" loading="lazy" alt="Graphical abstract: mean mAP against flicker rate for every segmenter and its memory-augmented versions, with four diagnostic panels">
+                <figcaption>Benchmark means over the four partitions. Top: mean spatial accuracy (mAP)
+                against flicker rate; arrows join each per-frame segmenter to the same model paired with
+                XMem2 or SAM3. Bottom: (A) robustness to camera-view change, (B) cross-partition
+                generalization, (C) accuracy against model size and (D) annotation scale.</figcaption>
+            </figure>
+            <figure>
+                <img src="imgs/memory_families.jpg" width="1580" height="2030" loading="lazy" alt="Camera paths around the FoodKit donut for five segmenters, alone and with XMem2, SAM2 and SAM3, colored by per-frame mAP">
+                <figcaption>Camera paths around the FoodKit donut (780 views). Each camera is colored by the
+                per-frame mAP of one configuration (mAP is per-frame precision, as in the paper). With XMem2
+                or SAM3, every family except FoodLMM keeps all views of this scene at 95% or above. All five
+                SAM2 hybrids fall below 10% here, and FoodLMM's memory variants reach 0%. SeTR-MLA + XMem2 is
+                FoodMem.</figcaption>
+            </figure>
+            <div class="caveat">
+                <b>Stable is not always correct.</b> A memory module propagates its first mask, so a wrong
+                start persists: YOLO + XMem2 has no flicker but 0% IoU on two FoodKit scenes. The
+                95.44% vs 95.20% mean-mAP gap between SeTR-MLA + SAM3 and FoodMem is not statistically
+                significant (paired Wilcoxon <i>p</i> = 0.62), and FoodMem is significantly better on recall
+                and IoU.
+            </div>
+
+            <h2 id="data">Data &amp; code</h2>
+            <p class="lead-text">The <a href="https://ubarcelona-my.sharepoint.com/:f:/g/personal/ahmad_almughrabi_ub_edu/IgCx8aqExIkET5Oc4SYkXx4LAU90ktza5oF0rYaRtMyJJ0Y?e=nChKFZ">dataset annotations</a>
+            and <a href="https://ubarcelona-my.sharepoint.com/:u:/g/personal/ahmad_almughrabi_ub_edu/IQCvxTYvwLEXRohtfOP8a7QsAQMvgWsfI42CKtXNUpM_5uI?e=Xx1fLs">pretrained models</a>
+            are available for download. The per-scene, per-run and per-metric CSVs behind every table and
+            figure are in the <a href="https://github.com/GCVCG/BenchSeg/releases/tag/reproducibility-csv-v1">reproducibility release</a>,
+            and the code is on <a href="https://github.com/GCVCG/BenchSeg">GitHub</a>. BenchSeg contributes
+            the masks and the benchmark; the RGB frames come from the source datasets under their own
+            licenses: Nutrition5k, Vegetables &amp; Fruits and FoodKit (CC BY 4.0) and MetaFood3D
+            (CC BY-NC 4.0, non-commercial use only). A preprint is on
+            <a href="https://arxiv.org/abs/2601.07581">arXiv</a>.</p>
+
+            <h2 id="acknowledgments">Acknowledgments</h2>
+            <p class="lead-text">This work was partially funded by the EU project FoodWISE,
+            2021-SGR-01094 (AGAUR), ICREA Academia&rsquo;2022 (Generalitat de Catalunya), and Grants
+            PID2022-141566NB-I00 (IDEATE), PID2025-173459NB-C21 (TRI-VISION), PID2025-173459NB-C22
+            (PULSAR) and AIA2025-163919-C51 (EXPLORA), funded by MICIU/AEI, by FEDER (UE), and by
+            European Union NextGenerationEU/PRTR. A. AlMughrabi acknowledges the support of FPI Becas,
+            MICINN, Spain. U. Haroon acknowledges the support of FI-SDUR Becas, MICINN, Spain.
+            F. Al-Areqi acknowledges the support of the FI 2025 doctoral fellowship (AGAUR), Spain. The
+            authors thankfully acknowledge the RES resources provided by the Barcelona Supercomputing
+            Center on MareNostrum5 for IM-2025-3-0008.</p>
+            <img class="funding-logos" src="imgs/logo-funding.png" width="1811" height="362" loading="lazy"
+                 alt="Ministerio de Ciencia, Innovación y Universidades; cofinanciado por la Unión Europea; Agencia Estatal de Investigación">
+            <div class="logo-strip">
+                <a href="https://www.ub.edu/"><img src="imgs/logo-ub.png" alt="Universitat de Barcelona" width="531" height="160" loading="lazy"></a>
+                <a href="https://www.upf.edu/"><img src="imgs/logo-upf.png" alt="Universitat Pompeu Fabra" width="463" height="160" loading="lazy"></a>
+                <a href="https://www.tum.de/"><img src="imgs/logo-tum.png" alt="Technical University of Munich" width="491" height="160" loading="lazy"></a>
+                <a href="https://www.bsc.es/"><img src="imgs/logo-bsc.png" alt="Barcelona Supercomputing Center" width="643" height="160" loading="lazy"></a>
+            </div>
+
+            <h2 id="citation">Citation</h2>
+            <div class="citation-wrap">
+            <button class="copy-btn" type="button" onclick="navigator.clipboard.writeText(document.getElementById('bibtex').innerText).then(() => { this.textContent = 'Copied'; setTimeout(() => this.textContent = 'Copy', 1500); })">Copy</button>
+            <div class="citation" id="bibtex">@article{almughrabi2026BenchSeg,
+  title   = {{BenchSeg}: A Densely Annotated Dataset and Benchmark for Multi-View Food Video Segmentation},
+  author  = {AlMughrabi, Ahmad and Rivo, Guillermo and Al-Areqi, Farid and Jim{\'e}nez-Farf{\'a}n, Carlos and
+             Haroon, Umair and Jung, Hyunjun and Busam, Benjamin and Marques, Ricardo and Radeva, Petia},
+  journal = {Expert Systems with Applications},
+  pages   = {135234},
+  year    = {2026},
+  doi     = {10.1016/j.eswa.2026.135234}
+}</div>
             </div>
         </div>
     </div>
+
+    <footer>
+        Universitat de Barcelona &middot; Universitat Pompeu Fabra &middot; Technical University of Munich &middot; LG Graduate School of AI<br>
+        Code: <a href="https://github.com/GCVCG/BenchSeg">github.com/GCVCG/BenchSeg</a>
+    </footer>
+
+</div>
 </body>
 </html>
