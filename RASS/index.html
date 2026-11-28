@@ -17,6 +17,10 @@
         body { font-size: 16px; }
         .abstract, .lead-text { text-align: justify; }
         .venue { font-size: 17px; color: #1b6f63; font-weight: 600; margin-top: -4px; }
+        .sessions { font-size: 14.5px; color: #444; margin: -6px 0 10px; line-height: 1.6; }
+        .video-wrap { max-width: 640px; margin: 0 auto; }
+        .video-wrap video { width: 100%; height: auto; border: 1px solid #e6e6e6; border-radius: 4px; background: #10313a; }
+        .video-note { font-size: 14px; color: #555; margin-top: 8px; text-align: center; }
         .author-list { display: flex; justify-content: center; flex-wrap: wrap; padding-left: 0; }
         .author-item { margin: 10px; text-align: center; }
         .icon-container { display: flex; justify-content: center; align-items: flex-start;
@@ -83,7 +87,7 @@
             .tldr { padding: 13px 15px; }
             .tldr-lead { font-size: 17px; }
             .icon-container { gap: 10px; }
-            .icon-container a { width: 76px; }
+            .icon-container a { width: 100px; }   /* five icons wrap as three and two */
             .icon-container img { width: 44px; height: 44px; }
             .icon-container span { font-size: 13px; }
             .stats { grid-template-columns: repeat(2, 1fr); gap: 8px; }
@@ -105,6 +109,11 @@
         <div class="col-12 text-center mb-2">
             <h1 class="mb-3">RASS: Risk-Audited Budget Selection for Compact NeRF Benchmark Subsets</h1>
             <p class="venue">NeurIPS 2026 &middot; Evaluations &amp; Datasets Track &middot; Poster</p>
+            <p class="sessions">
+                <a href="https://neurips.cc/virtual/2026/loc/paris/poster/138883">NeurIPS 2026, Paris</a>:
+                Wed 9 Dec, 11:00&ndash;13:00 (Paris time), Palais des congr&egrave;s, Poster Hall, board #P276<br>
+                <a href="https://sites.google.com/view/dlbcn2026">DLBCN 2026, Barcelona</a>: Mon 21 Dec, UPC Campus Nord
+            </p>
 
             <ul class="list-inline author-list">
                 <li class="list-inline-item author-item">
@@ -131,6 +140,10 @@
                     <img src="imgs/paper.png" alt="Paper">
                     <span>Paper (OpenReview)</span>
                 </a>
+                <a href="poster/RASS_NeurIPS2026_poster.pdf">
+                    <img src="imgs/poster.svg" alt="Poster">
+                    <span>Poster (PDF)</span>
+                </a>
                 <a href="slides/RASS_NeurIPS2026_talk.pdf">
                     <img src="imgs/slides.svg" alt="Slides">
                     <span>Slides</span>
@@ -153,7 +166,7 @@
             </div>
 
             <nav class="page-nav" aria-label="On this page">
-                <a href="#tldr">TL;DR</a> <a href="#method">Method</a> <a href="#results">Results</a>
+                <a href="#tldr">TL;DR</a> <a href="#video">Video</a> <a href="#method">Method</a> <a href="#results">Results</a>
                 <a href="#using">Using RASS</a> <a href="#slides">Slides</a> <a href="#artifact">Artifact</a>
                 <a href="#citation">Citation</a>
             </nav>
@@ -174,6 +187,17 @@
                 and RASS-96 is the recommended reporting subset, which also passes joint audits
                 over three and four methods. The protocol transfers to DL3DV.</p>
             </div>
+
+            <h2 id="video">Video</h2>
+            <div class="video-wrap">
+                <video controls muted playsinline preload="metadata" poster="imgs/video_poster.jpg" width="1080" height="1080">
+                    <source src="video/rass-overview.mp4" type="video/mp4">
+                    <a href="video/rass-overview.mp4">Download the overview video (MP4)</a>
+                </video>
+            </div>
+            <p class="video-note">An 80-second overview (no sound): the cost of NeRF benchmarking, the audit, and
+            the results, animated from the released logs. <a href="video/rass-overview.mp4" download>Download MP4</a>.<br>
+            Scene images: Nutrition5k (CC BY 4.0).</p>
 
             <h2 id="abstract">Abstract</h2>
             <div class="abstract">
